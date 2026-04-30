@@ -742,7 +742,7 @@ AKIYA_HTML = """<!DOCTYPE html>
       <div>
         <span class="ai-tag">AI TECHNOLOGY</span>
         <h2>最先端AIで、<br>空き家調査を革新する</h2>
-        <p>ギグスはJQCA（一般社団法人日本量子コンピューティング協会）と提携し、Claude Vision AIを活用した現地調査報告書の自動生成システムを導入。従来の人力調査と比べ、スピード・精度・コストのすべてを改善します。</p>
+        <p>ギグスは株式会社ZebraQuantumと提携し、Claude Vision AIを活用した現地調査報告書の自動生成システムを導入。従来の人力調査と比べ、スピード・精度・コストのすべてを改善します。</p>
         <ul class="ai-features">
           <li>現地写真をアップロードするだけで詳細な報告書を自動生成</li>
           <li>劣化状況・修繕必要箇所を画像AIが自動判定</li>
