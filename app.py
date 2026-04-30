@@ -174,8 +174,8 @@ FOOTER_HTML = """
     <div class="footer-bottom">
       <p>&copy; 2024 有限会社ギグス (GIGS CORP.) All rights reserved.</p>
       <div class="footer-license">
-        宅地建物取引業免許 東京都知事（XX）第XXXXXX号<br>
-        賃貸住宅管理業者登録 国土交通大臣（XX）第XXXXXX号
+        宅地建物取引士 / 1級建築施工管理技士<br>
+        不動産コンサルティングマスター / AFP
       </div>
     </div>
   </div>
@@ -834,11 +834,13 @@ COMPANY_HTML = """<!DOCTYPE html>
 
   /* LICENSE */
   .license-sec { background:#fff; }
-  .lic-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:20px; margin-top:48px; }
-  @media(max-width:640px){.lic-grid{grid-template-columns:1fr;}}
-  .lic-card { border:2px solid #e0e7f3; border-radius:14px; padding:24px; }
-  .lic-card h4 { font-size:0.9rem; font-weight:800; color:#0f3460; margin-bottom:8px; }
-  .lic-card p { font-size:0.85rem; color:#374151; }
+  .lic-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; margin-top:48px; }
+  @media(max-width:768px){.lic-grid{grid-template-columns:repeat(2,1fr);}}
+  @media(max-width:480px){.lic-grid{grid-template-columns:1fr;}}
+  .lic-card { border:2px solid #e0e7f3; border-radius:14px; padding:24px; display:flex; flex-direction:column; gap:8px; }
+  .lic-card .lic-year { font-size:0.72rem; font-weight:700; color:#fff; background:#0f3460; padding:3px 10px; border-radius:20px; display:inline-block; width:fit-content; }
+  .lic-card h4 { font-size:0.88rem; font-weight:800; color:#0f3460; }
+  .lic-card p { font-size:0.82rem; color:#6b7280; }
 </style>
 </head>
 <body>
@@ -919,13 +921,41 @@ COMPANY_HTML = """<!DOCTYPE html>
 
 <section class="license-sec" id="license">
   <div class="si">
-    <span class="tag tag-navy">LICENSE</span>
-    <h2 class="h2">免許・資格</h2>
+    <span class="tag tag-navy">LICENSE &amp; QUALIFICATION</span>
+    <h2 class="h2">代表者 保有資格</h2>
+    <p class="lead" style="margin-bottom:0;">代表取締役 高田裕行が保有する専門資格です。</p>
     <div class="lic-grid">
-      <div class="lic-card"><h4>宅地建物取引業免許</h4><p>東京都知事（XX）第XXXXXX号<br>※免許番号は別途ご確認ください</p></div>
-      <div class="lic-card"><h4>賃貸住宅管理業者登録</h4><p>国土交通大臣（XX）第XXXXXX号<br>登録日：令和XX年XX月XX日</p></div>
+      <div class="lic-card">
+        <span class="lic-year">1995年取得</span>
+        <h4>1級建築施工管理技士</h4>
+        <p>国家資格。建築工事の施工管理における最上位資格。</p>
+      </div>
+      <div class="lic-card">
+        <span class="lic-year">2001年取得</span>
+        <h4>宅地建物取引士</h4>
+        <p>国家資格。不動産取引の専門家として法的に認定。</p>
+      </div>
+      <div class="lic-card">
+        <span class="lic-year">2009年取得</span>
+        <h4>不動産コンサルティングマスター</h4>
+        <p>公益財団法人不動産流通推進センター認定。不動産の高度なコンサルティング能力を証明。</p>
+      </div>
+      <div class="lic-card">
+        <span class="lic-year">2010年取得</span>
+        <h4>AFP（Affiliated Financial Planner）</h4>
+        <p>日本FP協会認定。資産運用・相続・税務など総合的なファイナンシャルプランニング資格。</p>
+      </div>
+      <div class="lic-card">
+        <span class="lic-year">2021年取得</span>
+        <h4>住宅ローンアドバイザー</h4>
+        <p>住宅金融普及協会認定。住宅ローンに関する専門知識と相談対応能力を証明。</p>
+      </div>
+      <div class="lic-card">
+        <span class="lic-year">2022年取得</span>
+        <h4>賃貸不動産経営管理士</h4>
+        <p>国家資格。賃貸住宅の管理に関する専門的知識・技能を証明。</p>
+      </div>
     </div>
-    <p style="margin-top:16px;font-size:0.82rem;color:#6b7280;">※免許番号・登録番号の詳細はお問い合わせください。</p>
   </div>
 </section>
 
