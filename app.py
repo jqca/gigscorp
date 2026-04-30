@@ -519,6 +519,35 @@ AKIYA_HTML = """<!DOCTYPE html>
   .faq-a { display:none; padding:0 24px 20px; font-size:0.9rem; color:#4b5563; line-height:1.85; }
   .faq-item.open .faq-a { display:block; }
 
+  /* IoT MONITORING */
+  .iot-sec { background:#0a1a14; padding:92px 24px; }
+  .iot-inner { max-width:1120px; margin:0 auto; }
+  .iot-card { display:grid; grid-template-columns:1fr 1fr; gap:56px; align-items:center; }
+  @media(max-width:768px){.iot-card{grid-template-columns:1fr;}}
+  .iot-tag { background:rgba(74,222,128,0.15); color:#4ade80; font-size:0.72rem; font-weight:800; letter-spacing:0.15em; padding:5px 14px; border-radius:20px; display:inline-block; margin-bottom:14px; border:1px solid rgba(74,222,128,0.3); }
+  .iot-card h2 { font-size:clamp(1.6rem,2.8vw,2.2rem); font-weight:900; color:#fff; line-height:1.25; margin-bottom:16px; }
+  .iot-card h2 em { font-style:normal; color:#4ade80; }
+  .iot-card > div > p { font-size:0.93rem; color:rgba(255,255,255,0.68); line-height:1.85; margin-bottom:24px; }
+  .iot-detect { list-style:none; margin-bottom:28px; }
+  .iot-detect li { display:flex; align-items:flex-start; gap:12px; font-size:0.87rem; color:rgba(255,255,255,0.82); padding:9px 0; border-bottom:1px solid rgba(255,255,255,0.07); }
+  .iot-detect li:last-child { border-bottom:none; }
+  .iot-ico { width:32px; height:32px; border-radius:8px; background:rgba(74,222,128,0.15); border:1px solid rgba(74,222,128,0.25); display:flex; align-items:center; justify-content:center; font-size:1rem; flex-shrink:0; }
+  .iot-price-note { background:rgba(74,222,128,0.08); border:1px solid rgba(74,222,128,0.2); border-radius:12px; padding:16px 20px; font-size:0.83rem; color:rgba(255,255,255,0.65); }
+  .iot-price-note strong { color:#4ade80; font-size:1rem; }
+  .iot-monitor { background:#0d2218; border:1px solid rgba(74,222,128,0.2); border-radius:16px; padding:24px; }
+  .iot-monitor-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; }
+  .iot-monitor-title { font-size:0.78rem; font-weight:700; color:#4ade80; letter-spacing:0.1em; }
+  .iot-dot { width:8px; height:8px; border-radius:50%; background:#4ade80; box-shadow:0 0 8px #4ade80; animation:pulse 2s infinite; }
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}
+  .iot-device { background:rgba(255,255,255,0.04); border-radius:10px; padding:14px 16px; margin-bottom:10px; }
+  .iot-device-name { font-size:0.78rem; color:rgba(255,255,255,0.5); margin-bottom:6px; }
+  .iot-watt { font-size:1.8rem; font-weight:900; color:#fff; line-height:1; }
+  .iot-watt span { font-size:0.82rem; color:rgba(255,255,255,0.4); font-weight:400; }
+  .iot-bar-wrap { background:rgba(255,255,255,0.06); border-radius:4px; height:6px; margin-top:10px; overflow:hidden; }
+  .iot-bar { height:100%; border-radius:4px; background:linear-gradient(90deg,#4ade80,#22c55e); }
+  .iot-status { display:flex; justify-content:space-between; align-items:center; padding:10px 0; border-top:1px solid rgba(255,255,255,0.07); margin-top:12px; font-size:0.78rem; }
+  .iot-ok { color:#4ade80; font-weight:700; }
+  .iot-alert-row { background:rgba(251,191,36,0.08); border:1px solid rgba(251,191,36,0.2); border-radius:8px; padding:10px 14px; font-size:0.78rem; color:#fbbf24; margin-top:10px; }
   /* CTA */
   .ak-cta { background:linear-gradient(135deg,#0f3460,#16534a); padding:92px 24px; text-align:center; }
   .ak-cta h2 { font-size:clamp(1.7rem,3vw,2.4rem); font-weight:900; color:#fff; margin-bottom:14px; }
@@ -615,7 +644,92 @@ AKIYA_HTML = """<!DOCTYPE html>
               <p>費用対効果の高いリノベーションを提案。資産価値を高め、賃貸収入の最大化をサポートします。</p>
             </div>
           </li>
+          <li>
+            <div class="sol-ico">⚡</div>
+            <div class="sol-text">
+              <h4>IoTリアルタイム監視 <span style="font-size:0.7rem;background:linear-gradient(135deg,#0f3460,#16534a);color:#fff;padding:2px 8px;border-radius:10px;margin-left:4px;vertical-align:middle;">NEW</span></h4>
+              <p>SwitchBotスマートプラグで電力を24時間監視。不法侵入・漏電・設備異常をリアルタイムで検知し、即座にご連絡します。</p>
+            </div>
+          </li>
         </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- IoTリアルタイム監視 -->
+<section class="iot-sec" id="iot">
+  <div class="iot-inner">
+    <div class="iot-card">
+      <div>
+        <span class="iot-tag">⚡ IoT REALTIME MONITORING</span>
+        <h2>月1回の訪問では<br>気づけない異常を、<br><em>数分以内に検知。</em></h2>
+        <p>SwitchBotスマートプラグを空き家に設置するだけで、電力消費をリアルタイムで把握。不法侵入・漏電・設備故障などの異常を自動検知し、高田代表のスマートフォンに即座に通知します。管理代行プランへのオプション追加で、24時間365日の遠隔監視体制が整います。</p>
+        <ul class="iot-detect">
+          <li>
+            <div class="iot-ico">👤</div>
+            <div>
+              <strong style="color:#fff">深夜の電力スパイク検知</strong><br>
+              就寝時間帯の突発的な消費増加を検知。不法侵入者が電気を使用しているサインを見逃しません。
+            </div>
+          </li>
+          <li>
+            <div class="iot-ico">🔌</div>
+            <div>
+              <strong style="color:#fff">電力ゼロ・停電アラート</strong><br>
+              長時間の電力ゼロを検知。ブレーカー落ち・設備故障を早期発見し、建物劣化を防ぎます。
+            </div>
+          </li>
+          <li>
+            <div class="iot-ico">🔥</div>
+            <div>
+              <strong style="color:#fff">連続高消費・漏電の兆候</strong><br>
+              24時間以上の異常な高消費を検知。電気機器の付けっぱなし・漏電の早期発見に対応します。
+            </div>
+          </li>
+          <li>
+            <div class="iot-ico">📊</div>
+            <div>
+              <strong style="color:#fff">AIによる異常パターン分析</strong><br>
+              蓄積された電力データをAIが分析。「この物件らしくない消費」を自動で判定します。
+            </div>
+          </li>
+        </ul>
+        <div class="iot-price-note">
+          初期費用: SwitchBot本体 <strong>¥3,000〜5,000</strong>（買い切り）<br>
+          月額オプション: <strong>+¥2,000〜3,000</strong> / 管理代行プランに追加
+        </div>
+      </div>
+      <div class="iot-monitor">
+        <div class="iot-monitor-header">
+          <span class="iot-monitor-title">📡 LIVE MONITOR</span>
+          <div class="iot-dot"></div>
+        </div>
+        <div class="iot-device">
+          <div class="iot-device-name">リビング — SwitchBot Plug Mini</div>
+          <div class="iot-watt">142<span> W</span></div>
+          <div class="iot-bar-wrap"><div class="iot-bar" style="width:28%"></div></div>
+          <div class="iot-status">
+            <span style="color:rgba(255,255,255,0.45);font-size:0.73rem">24h平均: 89W</span>
+            <span class="iot-ok">● 正常</span>
+          </div>
+        </div>
+        <div class="iot-device">
+          <div class="iot-device-name">玄関 — SwitchBot Plug Mini</div>
+          <div class="iot-watt">0<span> W</span></div>
+          <div class="iot-bar-wrap"><div class="iot-bar" style="width:0%"></div></div>
+          <div class="iot-status">
+            <span style="color:rgba(255,255,255,0.45);font-size:0.73rem">24h平均: 0W</span>
+            <span class="iot-ok">● 正常</span>
+          </div>
+        </div>
+        <div class="iot-alert-row">
+          ⚠ 2日前 02:14 — 深夜帯に電力スパイク検知（+380W）<br>
+          <span style="opacity:0.7">→ 高田代表に即時通知・翌朝現地確認済み</span>
+        </div>
+        <div style="margin-top:16px;text-align:center">
+          <a href="/contact" style="display:inline-block;background:linear-gradient(135deg,#16a34a,#0f3460);color:#fff;padding:11px 28px;border-radius:8px;font-size:0.85rem;font-weight:700;">IoT監視オプションを相談する →</a>
+        </div>
       </div>
     </div>
   </div>
@@ -725,6 +839,10 @@ AKIYA_HTML = """<!DOCTYPE html>
           <li>異常時の緊急対応</li>
           <li>月次レポート提供</li>
         </ul>
+        <div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:10px;padding:12px 14px;margin-bottom:16px;text-align:left;">
+          <div style="font-size:0.72rem;font-weight:800;color:#16a34a;margin-bottom:6px;">⚡ オプション追加可能</div>
+          <div style="font-size:0.8rem;color:#374151;line-height:1.6">IoTリアルタイム監視<br><span style="color:#6b7280">+¥2,000〜3,000/月・機器費別</span></div>
+        </div>
         <a href="/contact" class="btn-primary" style="width:100%;justify-content:center;">相談する</a>
       </div>
       <div class="price-card">
