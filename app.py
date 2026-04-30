@@ -1,4 +1,4 @@
-"""
+﻿"""
 有限会社ギグス コーポレートサイト
 Routes:
   GET  /          - ホーム
@@ -194,7 +194,7 @@ HOME_HTML = """<!DOCTYPE html>
   /* HERO */
   .hero { position:relative; min-height:100vh; display:flex; align-items:center; overflow:hidden; padding:120px 24px 80px; }
   .hero-bg { position:absolute; inset:0; background:url('/static/images/hero.png') center/cover no-repeat; }
-  .hero-bg::after { content:''; position:absolute; inset:0; background:linear-gradient(100deg,rgba(10,25,60,0.88) 0%%,rgba(10,25,60,0.7) 55%%,rgba(10,25,60,0.3) 100%%); }
+  .hero-bg::after { content:''; position:absolute; inset:0; background:linear-gradient(100deg,rgba(10,25,60,0.88) 0%,rgba(10,25,60,0.7) 55%,rgba(10,25,60,0.3) 100%); }
   .hero-inner { position:relative; z-index:1; max-width:640px; }
   .hero-eyebrow { display:inline-flex; align-items:center; gap:8px; background:rgba(255,255,255,0.12); border:1px solid rgba(255,255,255,0.22); color:#93c5fd; padding:7px 18px; border-radius:30px; font-size:0.78rem; font-weight:700; letter-spacing:0.12em; margin-bottom:28px; }
   .hero h1 { font-size:clamp(2.2rem,5vw,3.6rem); font-weight:900; color:#fff; line-height:1.18; letter-spacing:-0.02em; margin-bottom:20px; }
@@ -234,7 +234,7 @@ HOME_HTML = """<!DOCTYPE html>
   .svc-link::after { content:'→'; }
 
   /* AKIYA FEATURE */
-  .akiya-feature { background:linear-gradient(135deg,#0f3460 0%%,#16534a 100%%); padding:92px 24px; }
+  .akiya-feature { background:linear-gradient(135deg,#0f3460 0%,#16534a 100%); padding:92px 24px; }
   .af-inner { max-width:1120px; margin:0 auto; display:grid; grid-template-columns:1fr 1fr; gap:64px; align-items:center; }
   @media(max-width:768px){.af-inner{grid-template-columns:1fr;}}
   .af-img { border-radius:20px; overflow:hidden; box-shadow:0 24px 64px rgba(0,0,0,0.3); }
@@ -424,7 +424,7 @@ AKIYA_HTML = """<!DOCTYPE html>
 <style>
   .ak-hero { position:relative; min-height:80vh; display:flex; align-items:center; padding:120px 40px 80px; overflow:hidden; }
   .ak-hero-bg { position:absolute; inset:0; background:url('/static/images/akiya_hero.png') center/cover; }
-  .ak-hero-bg::after { content:''; position:absolute; inset:0; background:linear-gradient(100deg,rgba(5,20,10,0.9) 0%%,rgba(5,20,10,0.7) 55%%,rgba(5,20,10,0.35) 100%%); }
+  .ak-hero-bg::after { content:''; position:absolute; inset:0; background:linear-gradient(100deg,rgba(5,20,10,0.9) 0%,rgba(5,20,10,0.7) 55%,rgba(5,20,10,0.35) 100%); }
   .ak-hero-inner { position:relative; z-index:1; max-width:620px; }
   .ak-hero h1 { font-size:clamp(2rem,4.5vw,3.2rem); font-weight:900; color:#fff; line-height:1.2; margin-bottom:20px; letter-spacing:-0.02em; }
   .ak-hero h1 em { font-style:normal; color:#6ee7b7; }
@@ -538,7 +538,7 @@ AKIYA_HTML = """<!DOCTYPE html>
     <p>全国に約900万戸もの空き家が存在し、毎年その数は増え続けています。ギグスはAI技術と不動産専門知識を組み合わせ、空き家オーナーの課題を解決します。</p>
     <div class="stat-pills">
       <div class="stat-pill">全国空き家数 <strong>約900万戸</strong></div>
-      <div class="stat-pill">空き家率 <strong>13.8%%</strong>（総務省2023年）</div>
+      <div class="stat-pill">空き家率 <strong>13.8%</strong>（総務省2023年）</div>
       <div class="stat-pill">AI調査で <strong>迅速・正確</strong></div>
     </div>
     <div style="display:flex;gap:14px;flex-wrap:wrap;">
@@ -563,8 +563,8 @@ AKIYA_HTML = """<!DOCTYPE html>
         </p>
         <div class="prob-stats">
           <div class="ps-item"><div class="ps-num">900<span style="font-size:1rem;">万戸</span></div><div class="ps-label">全国の空き家数（2023年）</div></div>
-          <div class="ps-item"><div class="ps-num">13.8<span style="font-size:1rem;">%%</span></div><div class="ps-label">過去最高の空き家率</div></div>
-          <div class="ps-item"><div class="ps-num">50<span style="font-size:1rem;">%%↓</span></div><div class="ps-label">放置による資産価値低下</div></div>
+          <div class="ps-item"><div class="ps-num">13.8<span style="font-size:1rem;">%</span></div><div class="ps-label">過去最高の空き家率</div></div>
+          <div class="ps-item"><div class="ps-num">50<span style="font-size:1rem;">%↓</span></div><div class="ps-label">放置による資産価値低下</div></div>
           <div class="ps-item"><div class="ps-num">1/3<span style="font-size:1rem;"></span></div><div class="ps-label">相続空き家の割合</div></div>
         </div>
       </div>
@@ -632,7 +632,7 @@ AKIYA_HTML = """<!DOCTYPE html>
         <ul class="ai-features">
           <li>現地写真をアップロードするだけで詳細な報告書を自動生成</li>
           <li>劣化状況・修繕必要箇所を画像AIが自動判定</li>
-          <li>報告書作成時間を従来比80%%以上短縮</li>
+          <li>報告書作成時間を従来比80%以上短縮</li>
           <li>全国どこでもオンラインで対応可能</li>
         </ul>
       </div>
