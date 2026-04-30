@@ -41,12 +41,10 @@ COMMON_CSS = """
   }
   .nav-brand { display: flex; align-items: center; gap: 10px; }
   .nav-logo-mark {
-    width: 40px; height: 40px; border-radius: 8px;
-    background: #fff;
+    width: 48px; height: 48px;
     display: flex; align-items: center; justify-content: center;
-    overflow: hidden;
   }
-  .nav-logo-mark img { width: 36px; height: 36px; object-fit: contain; }
+  .nav-logo-mark img { width: 48px; height: 48px; object-fit: contain; }
   .nav-logo-text { line-height: 1.1; }
   .nav-logo-ja { font-size: 0.95rem; font-weight: 900; color: #0f3460; }
   .nav-logo-en { font-size: 0.62rem; color: #6b7280; letter-spacing: 0.1em; }
