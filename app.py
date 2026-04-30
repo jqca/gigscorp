@@ -165,7 +165,7 @@ FOOTER_HTML = """
         <h4>お問い合わせ</h4>
         <ul>
           <li><a href="/contact">無料相談フォーム</a></li>
-          <li><a href="tel:0300000000">03-XXXX-XXXX</a></li>
+          <li><a href="tel:07083943791">070-8394-3791</a></li>
           <li><a href="mailto:info@gigscorp.jp">info@gigscorp.jp</a></li>
           <li><a href="/akiya#faq">よくある質問</a></li>
         </ul>
@@ -188,7 +188,7 @@ HOME_HTML = """<!DOCTYPE html>
 <html lang="ja"><head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>有限会社ギグス | 不動産・空き家・M&A 総合コンサルティング</title>
-<meta name="description" content="有限会社ギグスは不動産売買仲介・空き家ビジネス・M&A仲介を手がける総合不動産コンサルティング会社です。東京都文京区。">
+<meta name="description" content="有限会社ギグスは不動産売買仲介・空き家ビジネス・M&A仲介を手がける総合不動産コンサルティング会社です。東京都文京区本駒込。">
 %(CSS)s
 <style>
   /* HERO */
@@ -767,7 +767,7 @@ AKIYA_HTML = """<!DOCTYPE html>
   <p>初回相談は無料です。オンライン・電話でもお気軽にどうぞ。</p>
   <div class="ak-cta-btns">
     <a href="/contact" class="btn-wh">無料相談フォームへ</a>
-    <a href="tel:0300000000" style="border:2px solid rgba(255,255,255,0.4);color:#fff;padding:14px 28px;border-radius:8px;font-weight:700;">📞 お電話で相談</a>
+    <a href="tel:07083943791" style="border:2px solid rgba(255,255,255,0.4);color:#fff;padding:14px 28px;border-radius:8px;font-weight:700;">📞 お電話で相談</a>
   </div>
 </section>
 
@@ -908,8 +908,8 @@ COMPANY_HTML = """<!DOCTYPE html>
       <tr><th>会社名</th><td>有限会社ギグス（GIGS CORP.）</td></tr>
       <tr><th>代表取締役</th><td>高田 裕行</td></tr>
       <tr><th>設立</th><td>2006年1月4日</td></tr>
-      <tr><th>所在地</th><td>〒113-0021 東京都文京区（※詳細住所はお問い合わせください）</td></tr>
-      <tr><th>電話番号</th><td>03-XXXX-XXXX（平日9:00〜18:00）</td></tr>
+      <tr><th>所在地</th><td>〒113-0021 東京都文京区本駒込二丁目5番3号</td></tr>
+      <tr><th>電話番号</th><td>070-8394-3791（平日9:00〜18:00）</td></tr>
       <tr><th>メール</th><td>info@gigscorp.jp</td></tr>
       <tr><th>ウェブサイト</th><td>https://gigscorp.jp</td></tr>
       <tr><th>事業内容</th><td>不動産売買仲介・賃貸仲介 / 不動産コンサルティング / 空き家ビジネス（調査・管理・売却仲介） / M&A仲介 / ホームページ制作・システム開発</td></tr>
@@ -978,9 +978,9 @@ CONTACT_HTML = """<!DOCTYPE html>
     <div class="ct-grid">
       <div class="ct-info">
         <h3>ご連絡先</h3>
-        <div class="ct-item"><div class="ct-ico">📞</div><div><h4>お電話</h4><p>03-XXXX-XXXX<br>（平日 9:00〜18:00）</p></div></div>
+        <div class="ct-item"><div class="ct-ico">📞</div><div><h4>お電話</h4><p>070-8394-3791<br>（平日 9:00〜18:00）</p></div></div>
         <div class="ct-item"><div class="ct-ico">✉️</div><div><h4>メール</h4><p>info@gigscorp.jp<br>（2営業日以内に返信）</p></div></div>
-        <div class="ct-item"><div class="ct-ico">📍</div><div><h4>所在地</h4><p>〒113-0021<br>東京都文京区</p></div></div>
+        <div class="ct-item"><div class="ct-ico">📍</div><div><h4>所在地</h4><p>〒113-0021<br>東京都文京区本駒込二丁目5番3号</p></div></div>
         <div style="margin-top:32px;background:#eff6ff;border-radius:12px;padding:20px;">
           <p style="font-size:0.85rem;color:#1d4ed8;font-weight:700;margin-bottom:8px;">🌐 オンライン相談も対応</p>
           <p style="font-size:0.83rem;color:#374151;line-height:1.75;">Zoom・Google Meetでのオンライン相談に対応しております。遠方の方もお気軽にご相談ください。</p>
@@ -993,7 +993,7 @@ CONTACT_HTML = """<!DOCTYPE html>
         </div>
         <div class="form-row">
           <div class="fg"><label>メールアドレス<span class="req">*</span></label><input type="email" id="email" placeholder="mail@example.com"></div>
-          <div class="fg"><label>電話番号</label><input type="tel" id="tel" placeholder="03-XXXX-XXXX"></div>
+          <div class="fg"><label>電話番号</label><input type="tel" id="tel" placeholder="070-8394-3791"></div>
         </div>
         <div class="fg">
           <label>ご相談内容<span class="req">*</span></label>
