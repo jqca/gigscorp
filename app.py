@@ -41,11 +41,12 @@ COMMON_CSS = """
   }
   .nav-brand { display: flex; align-items: center; gap: 10px; }
   .nav-logo-mark {
-    width: 36px; height: 36px; border-radius: 8px;
-    background: linear-gradient(135deg, #0f3460, #16534a);
+    width: 40px; height: 40px; border-radius: 8px;
+    background: #fff;
     display: flex; align-items: center; justify-content: center;
-    color: #fff; font-weight: 900; font-size: 1rem; letter-spacing: -0.02em;
+    overflow: hidden;
   }
+  .nav-logo-mark img { width: 36px; height: 36px; object-fit: contain; }
   .nav-logo-text { line-height: 1.1; }
   .nav-logo-ja { font-size: 0.95rem; font-weight: 900; color: #0f3460; }
   .nav-logo-en { font-size: 0.62rem; color: #6b7280; letter-spacing: 0.1em; }
@@ -124,7 +125,7 @@ def nav_html(active=""):
     return f"""
 <nav>
   <a href="/" class="nav-brand">
-    <div class="nav-logo-mark">G</div>
+    <div class="nav-logo-mark"><img src="/static/images/logo.png" alt="有限会社ギグス ロゴ"></div>
     <div class="nav-logo-text">
       <div class="nav-logo-ja">有限会社ギグス</div>
       <div class="nav-logo-en">GIGS CORP.</div>
