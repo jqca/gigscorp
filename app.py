@@ -1043,7 +1043,10 @@ async function submitContact(){
 #  Flask ルート
 # ─────────────────────────────────────────────────────────────
 def render(html, active=""):
-    return html % {"CSS": COMMON_CSS, "NAV": nav_html(active), "FOOTER": FOOTER_HTML}
+    return (html
+        .replace("%(CSS)s", COMMON_CSS)
+        .replace("%(NAV)s", nav_html(active))
+        .replace("%(FOOTER)s", FOOTER_HTML))
 
 @app.route('/')
 def home():
