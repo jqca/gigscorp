@@ -907,175 +907,311 @@ document.querySelectorAll('.faq-q').forEach(btn=>{
 COMPANY_HTML = """<!DOCTYPE html>
 <html lang="ja"><head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>会社概要 | 有限会社ギグス</title>
+<title>会社案内 | 有限会社ギグス</title>
 %(CSS)s
 <style>
-  .pg-hero { position:relative; height:480px; display:flex; align-items:center; padding:100px 40px 60px; overflow:hidden; }
-  .pg-hero-bg { position:absolute; inset:0; background:url('/static/images/about_hero.png') center/cover; }
-  .pg-hero-bg::after { content:''; position:absolute; inset:0; background:rgba(10,20,50,0.78); }
-  .pg-hero-inner { position:relative; z-index:1; }
-  .pg-hero h1 { font-size:clamp(2rem,4vw,3rem); font-weight:900; color:#fff; line-height:1.2; margin-bottom:12px; }
-  .pg-hero p { font-size:1rem; color:rgba(255,255,255,0.72); }
+  /* ── ページタイトルバー ── */
+  .co-header { background:#fff; padding:20px 0 0; border-bottom:1px solid #e5e7eb; }
+  .co-breadcrumb { font-size:0.76rem; color:#9ca3af; max-width:1080px; margin:0 auto; padding:0 24px 10px; }
+  .co-breadcrumb a { color:#9ca3af; text-decoration:none; }
+  .co-breadcrumb a:hover { color:#1d3461; }
+  .co-breadcrumb span { margin:0 6px; }
+  .co-page-ttl { max-width:1080px; margin:0 auto; padding:0 24px 20px; border-left:4px solid #1d3461; }
+  .co-page-ttl h1 { font-size:1.6rem; font-weight:900; color:#1d3461; line-height:1.2; margin-bottom:2px; }
+  .co-page-ttl small { font-size:0.8rem; color:#9ca3af; letter-spacing:1px; }
 
-  /* CEO MESSAGE */
-  .message-sec { background:#fff; }
-  .msg-grid { display:grid; grid-template-columns:280px 1fr; gap:56px; align-items:start; margin-top:56px; }
-  @media(max-width:768px){.msg-grid{grid-template-columns:1fr;}}
-  .msg-photo { border-radius:20px; overflow:hidden; box-shadow:0 12px 36px rgba(0,0,0,0.12); }
-  .msg-photo img { width:100%; height:320px; object-fit:cover; object-position:top; }
-  .msg-name { text-align:center; margin-top:14px; }
-  .msg-name .name { font-size:1.1rem; font-weight:900; color:#0f172a; }
-  .msg-name .role { font-size:0.8rem; color:#6b7280; margin-top:2px; }
-  blockquote { border-left:4px solid #0f3460; padding-left:20px; margin:24px 0; }
-  blockquote p { font-size:1.05rem; color:#0f3460; font-weight:700; font-style:italic; line-height:1.7; }
-  .msg-text p { font-size:0.93rem; color:#374151; line-height:1.95; margin-bottom:16px; }
+  /* ── メイン（写真＋テキスト） ── */
+  .co-main { background:#fff; padding:48px 0; }
+  .co-main-inner { max-width:1080px; margin:0 auto; padding:0 24px;
+    display:grid; grid-template-columns:300px 1fr; gap:48px; align-items:start; }
+  @media(max-width:768px){ .co-main-inner { grid-template-columns:1fr; } }
+  .co-photo { width:100%; border-radius:4px; overflow:hidden; }
+  .co-photo img { width:100%; display:block; object-fit:cover; }
+  .co-mission-ttl { font-size:clamp(1.35rem,2.4vw,1.9rem); font-weight:900; color:#1d3461;
+    line-height:1.55; margin-bottom:14px; }
+  .co-mission-sub { font-size:0.95rem; font-weight:700; color:#9a7b2e; line-height:1.7; margin-bottom:24px; }
+  .co-mission-body p { font-size:0.88rem; color:#374151; line-height:2.05; margin-bottom:10px; }
+  .co-callout { margin-top:28px; border:1px solid #d4b483; border-radius:6px; padding:14px 18px;
+    display:flex; gap:14px; align-items:flex-start; background:#fdf9f2; }
+  .co-callout-icon { font-size:2rem; flex-shrink:0; }
+  .co-callout-text { font-size:0.87rem; color:#374151; line-height:1.85; font-weight:600; }
 
-  /* PHILOSOPHY */
-  .philosophy { background:linear-gradient(135deg,#0f3460,#16534a); padding:80px 24px; }
-  .ph-inner { max-width:960px; margin:0 auto; text-align:center; }
-  .ph-inner h2 { font-size:1.5rem; font-weight:900; color:#fff; margin-bottom:48px; }
-  .ph-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
-  @media(max-width:640px){.ph-grid{grid-template-columns:1fr;}}
-  .ph-card { background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.15); border-radius:16px; padding:32px 24px; }
-  .ph-icon { font-size:2rem; margin-bottom:14px; }
-  .ph-card h3 { font-size:0.95rem; font-weight:800; color:#fcd34d; margin-bottom:10px; }
-  .ph-card p { font-size:0.84rem; color:rgba(255,255,255,0.72); line-height:1.8; }
+  /* ── 中段：経営理念 ＆ 会社概要 ── */
+  .co-mid { background:#f7f9fb; padding:40px 0; }
+  .co-mid-inner { max-width:1080px; margin:0 auto; padding:0 24px;
+    display:grid; grid-template-columns:1fr 1fr; gap:24px; align-items:start; }
+  @media(max-width:768px){ .co-mid-inner { grid-template-columns:1fr; } }
 
-  /* COMPANY INFO TABLE */
-  .info-sec { background:#f7f9fb; }
-  .info-table { width:100%; border-collapse:collapse; margin-top:48px; background:#fff; border-radius:16px; overflow:hidden; box-shadow:0 2px 12px rgba(0,0,0,0.06); }
-  .info-table tr { border-bottom:1px solid #f3f4f6; }
-  .info-table tr:last-child { border-bottom:none; }
-  .info-table th { width:180px; padding:18px 24px; background:#f8fafc; font-size:0.85rem; font-weight:700; color:#374151; text-align:left; vertical-align:top; }
-  .info-table td { padding:18px 24px; font-size:0.9rem; color:#1f2937; line-height:1.75; }
-  @media(max-width:640px){.info-table th{width:120px;}}
+  /* ── 下段：資格 ＆ 行わないこと ── */
+  .co-btm { background:#fff; padding:40px 0; }
+  .co-btm-inner { max-width:1080px; margin:0 auto; padding:0 24px;
+    display:grid; grid-template-columns:1fr 1fr; gap:24px; align-items:start; }
+  @media(max-width:768px){ .co-btm-inner { grid-template-columns:1fr; } }
 
-  /* LICENSE */
-  .license-sec { background:#fff; }
-  .lic-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; margin-top:48px; }
-  @media(max-width:768px){.lic-grid{grid-template-columns:repeat(2,1fr);}}
-  @media(max-width:480px){.lic-grid{grid-template-columns:1fr;}}
-  .lic-card { border:2px solid #e0e7f3; border-radius:14px; padding:24px; display:flex; flex-direction:column; gap:8px; }
-  .lic-card .lic-year { font-size:0.72rem; font-weight:700; color:#fff; background:#0f3460; padding:3px 10px; border-radius:20px; display:inline-block; width:fit-content; }
-  .lic-card h4 { font-size:0.88rem; font-weight:800; color:#0f3460; }
-  .lic-card p { font-size:0.82rem; color:#6b7280; }
+  /* セクションカード共通 */
+  .co-card { background:#fff; border-radius:6px; padding:24px; box-shadow:0 2px 8px rgba(0,0,0,.07); }
+  .co-card-hd { background:#1d3461; color:#fff; border-radius:4px; padding:9px 14px;
+    font-size:0.85rem; font-weight:800; margin-bottom:18px;
+    display:flex; align-items:center; gap:7px; }
+
+  /* 経営理念 */
+  .co-phil-lead { font-size:0.9rem; font-weight:700; color:#1d3461; line-height:1.8;
+    margin-bottom:18px; padding-bottom:14px; border-bottom:2px solid #e5e7eb; }
+  .co-check-list { list-style:none; padding:0; margin:0 0 18px; }
+  .co-check-list li { display:flex; gap:10px; align-items:flex-start;
+    font-size:0.86rem; color:#374151; padding:8px 0; border-bottom:1px solid #f3f4f6; }
+  .co-check-list li:last-child { border-bottom:none; }
+  .co-check-mark { width:20px; height:20px; background:#1d3461; border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    color:#fff; font-size:0.68rem; flex-shrink:0; margin-top:1px; }
+  .co-origin-ttl { font-size:0.84rem; font-weight:800; color:#1d3461;
+    margin-bottom:7px; display:flex; align-items:center; gap:6px; }
+  .co-origin-body { font-size:0.82rem; color:#6b7280; line-height:1.9; }
+
+  /* 会社概要テーブル */
+  .co-info-table { width:100%; border-collapse:collapse; font-size:0.84rem; }
+  .co-info-table tr { border-bottom:1px solid #f3f4f6; }
+  .co-info-table tr:last-child { border-bottom:none; }
+  .co-info-table th { padding:9px 12px; font-weight:700; color:#374151;
+    background:#f8fafc; width:80px; vertical-align:top; white-space:nowrap; }
+  .co-info-table td { padding:9px 12px; color:#1f2937; line-height:1.8; }
+  .co-table-note { font-size:0.74rem; color:#6b7280; margin-top:12px; line-height:1.8; }
+
+  /* 資格リスト */
+  .co-lic-list { list-style:none; padding:0; margin:0; }
+  .co-lic-item { display:flex; gap:10px; padding:10px 0; border-bottom:1px solid #f3f4f6; align-items:flex-start; }
+  .co-lic-item:last-child { border-bottom:none; }
+  .co-lic-num { width:26px; height:26px; border-radius:5px; background:#f0f4fa;
+    border:1px solid #c8d4ed; display:flex; align-items:center; justify-content:center;
+    font-size:0.75rem; font-weight:800; color:#1d3461; flex-shrink:0; margin-top:1px; }
+  .co-lic-icon { font-size:1.15rem; flex-shrink:0; margin-top:2px; }
+  .co-lic-content h4 { font-size:0.86rem; font-weight:800; color:#1d3461; margin-bottom:2px; }
+  .co-lic-content p { font-size:0.77rem; color:#6b7280; line-height:1.6; }
+
+  /* 行わないことリスト */
+  .co-nodo-list { list-style:none; padding:0; margin:0; }
+  .co-nodo-item { padding:12px 0; border-bottom:1px solid #f3f4f6; }
+  .co-nodo-item:last-child { border-bottom:none; }
+  .co-nodo-hd { display:flex; gap:8px; align-items:flex-start; margin-bottom:3px; }
+  .co-nodo-x { color:#dc2626; font-size:1rem; font-weight:900; flex-shrink:0; line-height:1.4; }
+  .co-nodo-ttl { font-size:0.87rem; font-weight:800; color:#1f2937; line-height:1.4; }
+  .co-nodo-body { font-size:0.79rem; color:#6b7280; line-height:1.75; padding-left:18px; }
+
+  /* ── フッターCTA ── */
+  .co-cta { background:#1d3461; padding:22px 24px;
+    display:flex; align-items:center; justify-content:space-between; gap:20px; flex-wrap:wrap; }
+  .co-cta-left { display:flex; align-items:center; gap:14px; color:#fff; }
+  .co-cta-left .icon { font-size:1.8rem; }
+  .co-cta-left p { font-size:0.87rem; line-height:1.7; }
+  .co-cta-btn { background:#b8963e; color:#fff; padding:13px 28px; border-radius:4px;
+    font-size:0.88rem; font-weight:800; text-decoration:none;
+    display:flex; align-items:center; gap:8px; flex-shrink:0; white-space:nowrap; }
+  .co-cta-btn:hover { background:#9a7b2e; color:#fff; }
 </style>
 </head>
 <body>
 %(NAV)s
 
-<div class="pg-hero">
-  <div class="pg-hero-bg"></div>
-  <div class="pg-hero-inner">
-    <h1>会社概要</h1>
-    <p>有限会社ギグスについてご紹介します。</p>
+<!-- ページタイトル -->
+<div class="co-header">
+  <div class="co-breadcrumb">
+    <a href="/">HOME</a><span>&gt;</span>会社案内
+  </div>
+  <div class="co-page-ttl">
+    <h1>会社案内</h1>
+    <small>Company</small>
   </div>
 </div>
 
-<section class="message-sec" id="message">
-  <div class="si">
-    <span class="tag tag-navy">CEO MESSAGE</span>
-    <h2 class="h2">代表者メッセージ</h2>
-    <div class="msg-grid">
-      <div>
-        <div class="msg-photo">
-          <img src="/static/images/ceo.png" onerror="this.parentElement.style.background='linear-gradient(135deg,#0f3460,#16534a)';this.style.display='none'" alt="代表取締役 高田裕行">
+<!-- メイン：写真＋ミッション -->
+<section class="co-main">
+  <div class="co-main-inner">
+    <div class="co-photo">
+      <img src="/static/images/ceo.png" alt="代表 高田裕行"
+           onerror="this.parentElement.style.cssText='background:#e5e7eb;height:380px;border-radius:4px;';this.style.display='none'">
+    </div>
+    <div>
+      <div class="co-mission-ttl">
+        不動産は人生の基盤です。<br>
+        その基盤を守り、活かすことが<br>
+        私たちの使命です。
+      </div>
+      <div class="co-mission-sub">
+        お客様にとって最適な判断を支援することが、<br>私たちギグスの存在意義です。
+      </div>
+      <div class="co-mission-body">
+        <p>有限会社ギグスは2006年の創業以来、不動産・事業・資産に関する意思決定を支援してきました。</p>
+        <p>私たちが重視しているのは、特定の取引に偏らない中立的な立場です。売却・保有・賃貸・再生といった複数の選択肢を比較し、お客様にとって最適な判断をご提案します。</p>
+        <p>実際に、売却ではなく保有をお勧めしたり、リフォームを行わない方が良いとお伝えすることもあります。</p>
+        <p>近年は空き家問題への対応として、AI技術を活用した現地調査を取り入れ、より正確で合理的な判断を可能にしています。</p>
+        <p>当社は「取引」を目的とせず、「最適な判断」を提供する会社です。</p>
+      </div>
+      <div class="co-callout">
+        <div class="co-callout-icon">🏠</div>
+        <div class="co-callout-text">
+          空き家・不動産・M&amp;Aについて、現状を踏まえた最適な選択肢をご提案します。<br>
+          まずは一度、今の状況をお聞かせください。
         </div>
-        <div class="msg-name">
-          <div class="name">高田 裕行</div>
-          <div class="role">代表取締役</div>
-        </div>
-      </div>
-      <div class="msg-text">
-        <blockquote><p>「不動産は人生の基盤です。その基盤を守り、活かすことが私たちの使命です。」</p></blockquote>
-        <p>有限会社ギグスは2006年の創業以来、不動産売買仲介・コンサルティング・M&A仲介を通じて、多くのお客様の資産形成・保全をお手伝いしてまいりました。</p>
-        <p>近年、全国で深刻化する空き家問題に取り組むため、最先端のAI技術（Claude Vision API）を活用した現地調査システムを導入しました。迅速・正確・低コストな調査報告で、空き家オーナー様の意思決定を強力にサポートします。</p>
-        <p>私たちが大切にしているのは、お客様との長期的な信頼関係です。一時的な取引ではなく、生涯のパートナーとして、不動産に関するあらゆる課題に真摯に向き合い続けます。</p>
-        <p>空き家・不動産・M&Aのことなら、ぜひギグスにご相談ください。</p>
       </div>
     </div>
   </div>
 </section>
 
-<section class="philosophy" id="philosophy">
-  <div class="ph-inner">
-    <h2>経営理念</h2>
-    <div class="ph-grid">
-      <div class="ph-card">
-        <div class="ph-icon">🤝</div>
-        <h3>信頼</h3>
-        <p>お客様の大切な資産に向き合う誠実さと透明性を第一に、長期的な信頼関係を築きます。</p>
-      </div>
-      <div class="ph-card">
-        <div class="ph-icon">💡</div>
-        <h3>革新</h3>
-        <p>AI・テクノロジーを積極的に活用し、不動産業界に新しい価値と可能性をもたらします。</p>
-      </div>
-      <div class="ph-card">
-        <div class="ph-icon">🌱</div>
-        <h3>貢献</h3>
-        <p>空き家問題の解決など、社会課題に向き合いながら地域と社会の持続的な発展に貢献します。</p>
-      </div>
+<!-- 経営理念 ＆ 会社概要 -->
+<section class="co-mid">
+  <div class="co-mid-inner">
+
+    <!-- 経営理念 -->
+    <div class="co-card">
+      <div class="co-card-hd">📋 経営理念</div>
+      <p class="co-phil-lead">
+        お客様にとって最適な判断を支援し、<br>
+        資産価値の最大化と安心できる未来の実現に貢献します。
+      </p>
+      <ul class="co-check-list">
+        <li><div class="co-check-mark">✓</div><span>状況を正しく把握し、最適な判断をご提案します</span></li>
+        <li><div class="co-check-mark">✓</div><span>短期的な利益ではなく、中長期視点で支援します</span></li>
+        <li><div class="co-check-mark">✓</div><span>中立的な立場で、複数の選択肢を比較します</span></li>
+        <li><div class="co-check-mark">✓</div><span>誠実で透明性の高い対応を徹底します</span></li>
+      </ul>
+      <div class="co-origin-ttl">👤 私たちの原点</div>
+      <p class="co-origin-body">
+        現場では、十分な検討がなされないまま意思決定が行われているケースを多く見てきました。
+        だからこそ私たちは、「正しい情報」と「中立的な視点」に基づいた判断支援にこだわっています。
+      </p>
     </div>
+
+    <!-- 会社概要 -->
+    <div class="co-card">
+      <div class="co-card-hd">📋 会社概要</div>
+      <table class="co-info-table">
+        <tr><th>会社名</th><td>有限会社ギグス</td></tr>
+        <tr><th>代表者</th><td>高田 裕行</td></tr>
+        <tr><th>所在地</th><td>〒113-0021 東京都文京区本駒込二丁目5番3号</td></tr>
+        <tr><th>電話番号</th><td>070-8394-3791</td></tr>
+        <tr><th>設立</th><td>2006年1月4日</td></tr>
+        <tr><th>資本金</th><td>300万円</td></tr>
+        <tr><th>事業内容</th><td>
+          ・不動産コンサルティング<br>
+          ・空き家活用支援<br>
+          ・M&amp;A仲介
+        </td></tr>
+      </table>
+      <p class="co-table-note">
+        ※当社は宅地建物取引業者ではありません。<br>
+        　不動産の売買・賃貸に関する媒介業務は、<br>
+        　提携する宅地建物取引業者と連携して対応しています。
+      </p>
+    </div>
+
   </div>
 </section>
 
-<section class="info-sec">
-  <div class="si">
-    <span class="tag tag-gray">COMPANY INFO</span>
-    <h2 class="h2">会社概要</h2>
-    <table class="info-table">
-      <tr><th>会社名</th><td>有限会社ギグス（GIGS CORP.）</td></tr>
-      <tr><th>代表取締役</th><td>高田 裕行</td></tr>
-      <tr><th>設立</th><td>2006年1月4日</td></tr>
-      <tr><th>所在地</th><td>〒113-0021 東京都文京区本駒込二丁目5番3号</td></tr>
-      <tr><th>電話番号</th><td>070-8394-3791（平日9:00〜18:00）</td></tr>
-      <tr><th>メール</th><td>info@gigscorp.jp</td></tr>
-      <tr><th>ウェブサイト</th><td>https://gigscorp.jp</td></tr>
-      <tr><th>事業内容</th><td>不動産売買仲介・賃貸仲介 / 不動産コンサルティング / 空き家ビジネス（調査・管理・売却仲介） / M&A仲介 / ホームページ制作・システム開発</td></tr>
-    </table>
+<!-- 代表者保有資格 ＆ 私たちが行わないこと -->
+<section class="co-btm">
+  <div class="co-btm-inner">
+
+    <!-- 代表者保有資格 -->
+    <div class="co-card">
+      <div class="co-card-hd">📋 代表者保有資格（6資格）</div>
+      <ul class="co-lic-list">
+        <li class="co-lic-item">
+          <div class="co-lic-num">1</div>
+          <div class="co-lic-icon">🏗️</div>
+          <div class="co-lic-content">
+            <h4>1級建築施工管理技士</h4>
+            <p>建築工事の計画・施工・管理に関する専門資格</p>
+          </div>
+        </li>
+        <li class="co-lic-item">
+          <div class="co-lic-num">2</div>
+          <div class="co-lic-icon">🏠</div>
+          <div class="co-lic-content">
+            <h4>宅地建物取引士</h4>
+            <p>不動産取引における適正な判断とリスク管理</p>
+          </div>
+        </li>
+        <li class="co-lic-item">
+          <div class="co-lic-num">3</div>
+          <div class="co-lic-icon">📊</div>
+          <div class="co-lic-content">
+            <h4>不動産コンサルティングマスター</h4>
+            <p>不動産の有効活用・資産戦略に関する専門資格</p>
+          </div>
+        </li>
+        <li class="co-lic-item">
+          <div class="co-lic-num">4</div>
+          <div class="co-lic-icon">💰</div>
+          <div class="co-lic-content">
+            <h4>AFP（日本FP協会認定）</h4>
+            <p>資産設計・ライフプランニングの専門知識</p>
+          </div>
+        </li>
+        <li class="co-lic-item">
+          <div class="co-lic-num">5</div>
+          <div class="co-lic-icon">🏦</div>
+          <div class="co-lic-content">
+            <h4>住宅ローンアドバイザー</h4>
+            <p>住宅ローンに関する適切な提案・助言</p>
+          </div>
+        </li>
+        <li class="co-lic-item">
+          <div class="co-lic-num">6</div>
+          <div class="co-lic-icon">🔑</div>
+          <div class="co-lic-content">
+            <h4>賃貸不動産経営管理士</h4>
+            <p>賃貸不動産の運営・管理に関する専門資格</p>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <!-- 私たちが行わないこと -->
+    <div class="co-card">
+      <div class="co-card-hd">📋 私たちが行わないこと</div>
+      <ul class="co-nodo-list">
+        <li class="co-nodo-item">
+          <div class="co-nodo-hd">
+            <span class="co-nodo-x">✕</span>
+            <span class="co-nodo-ttl">特定の取引を前提とした提案</span>
+          </div>
+          <p class="co-nodo-body">特定の物件や業者の利益を優先する提案は行いません。</p>
+        </li>
+        <li class="co-nodo-item">
+          <div class="co-nodo-hd">
+            <span class="co-nodo-x">✕</span>
+            <span class="co-nodo-ttl">売却やリフォームを前提とした誘導</span>
+          </div>
+          <p class="co-nodo-body">状況によっては「しない方が良い」とお伝えします。</p>
+        </li>
+        <li class="co-nodo-item">
+          <div class="co-nodo-hd">
+            <span class="co-nodo-x">✕</span>
+            <span class="co-nodo-ttl">短期的な利益を優先した判断</span>
+          </div>
+          <p class="co-nodo-body">中長期的にお客様の資産価値を高める提案を行います。</p>
+        </li>
+        <li class="co-nodo-item">
+          <div class="co-nodo-hd">
+            <span class="co-nodo-x">✕</span>
+            <span class="co-nodo-ttl">十分な調査・分析を伴わない提案</span>
+          </div>
+          <p class="co-nodo-body">正確な情報に基づいた判断を最も重視します。</p>
+        </li>
+      </ul>
+    </div>
+
   </div>
 </section>
 
-<section class="license-sec" id="license">
-  <div class="si">
-    <span class="tag tag-navy">LICENSE &amp; QUALIFICATION</span>
-    <h2 class="h2">代表者 保有資格</h2>
-    <p class="lead" style="margin-bottom:0;">代表取締役 高田裕行が保有する専門資格です。</p>
-    <div class="lic-grid">
-      <div class="lic-card">
-        <span class="lic-year">1995年取得</span>
-        <h4>1級建築施工管理技士</h4>
-        <p>国家資格。建築工事の施工管理における最上位資格。</p>
-      </div>
-      <div class="lic-card">
-        <span class="lic-year">2001年取得</span>
-        <h4>宅地建物取引士</h4>
-        <p>国家資格。不動産取引の専門家として法的に認定。</p>
-      </div>
-      <div class="lic-card">
-        <span class="lic-year">2009年取得</span>
-        <h4>不動産コンサルティングマスター</h4>
-        <p>公益財団法人不動産流通推進センター認定。不動産の高度なコンサルティング能力を証明。</p>
-      </div>
-      <div class="lic-card">
-        <span class="lic-year">2010年取得</span>
-        <h4>AFP（Affiliated Financial Planner）</h4>
-        <p>日本FP協会認定。資産運用・相続・税務など総合的なファイナンシャルプランニング資格。</p>
-      </div>
-      <div class="lic-card">
-        <span class="lic-year">2021年取得</span>
-        <h4>住宅ローンアドバイザー</h4>
-        <p>住宅金融普及協会認定。住宅ローンに関する専門知識と相談対応能力を証明。</p>
-      </div>
-      <div class="lic-card">
-        <span class="lic-year">2022年取得</span>
-        <h4>賃貸不動産経営管理士</h4>
-        <p>国家資格。賃貸住宅の管理に関する専門的知識・技能を証明。</p>
-      </div>
-    </div>
+<!-- フッターCTA -->
+<div class="co-cta">
+  <div class="co-cta-left">
+    <div class="icon">📞</div>
+    <p>空き家・不動産・M&amp;Aに関するご相談は<br>お気軽にお問い合わせください</p>
   </div>
-</section>
+  <a href="/contact" class="co-cta-btn">✉️ 無料相談・お問い合わせはこちら &gt;</a>
+</div>
 
 %(FOOTER)s
 </body></html>"""
