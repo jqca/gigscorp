@@ -911,7 +911,7 @@ COMPANY_HTML = """<!DOCTYPE html>
 %(CSS)s
 <style>
   /* ── ページタイトルバー ── */
-  .co-header { background:#fff; padding:20px 0 0; border-bottom:1px solid #e5e7eb; }
+  .co-header { background:#fff; padding:88px 0 0; border-bottom:1px solid #e5e7eb; }
   .co-breadcrumb { font-size:0.76rem; color:#9ca3af; max-width:1080px; margin:0 auto; padding:0 24px 10px; }
   .co-breadcrumb a { color:#9ca3af; text-decoration:none; }
   .co-breadcrumb a:hover { color:#1d3461; }
