@@ -207,22 +207,22 @@ FOOTER_HTML = """
 HOME_HTML = """<!DOCTYPE html>
 <html lang="ja"><head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>有限会社ギグス | 不動産・空き家・M&A 総合コンサルティング</title>
-<meta name="description" content="有限会社ギグスは不動産売買仲介・空き家ビジネス・M&A仲介を手がける総合不動産コンサルティング会社です。東京都文京区本駒込。">
+<title>有限会社ギグス | 地主・不動産オーナーの長期パートナー</title>
+<meta name="description" content="空き家の確認から、資産活用の相談、事業の将来まで。有限会社ギグスは不動産オーナー・地主の方の「次の一手」を長期的にサポートします。東京都文京区本駒込。">
 %(CSS)s
 <style>
   /* HERO */
   .hero { position:relative; min-height:100vh; display:flex; align-items:center; overflow:hidden; padding:120px 24px 80px; }
   .hero-bg { position:absolute; inset:0; background:url('/static/images/hero.png') center/cover no-repeat; }
-  .hero-bg::after { content:''; position:absolute; inset:0; background:linear-gradient(100deg,rgba(10,25,60,0.88) 0%,rgba(10,25,60,0.7) 55%,rgba(10,25,60,0.3) 100%); }
+  .hero-bg::after { content:''; position:absolute; inset:0; background:linear-gradient(100deg,rgba(10,25,60,0.90) 0%,rgba(10,25,60,0.72) 55%,rgba(10,25,60,0.25) 100%); }
   .hero-inner { position:relative; z-index:1; max-width:640px; }
   .hero-eyebrow { display:inline-flex; align-items:center; gap:8px; background:rgba(255,255,255,0.12); border:1px solid rgba(255,255,255,0.22); color:#93c5fd; padding:7px 18px; border-radius:30px; font-size:0.78rem; font-weight:700; letter-spacing:0.12em; margin-bottom:28px; }
-  .hero h1 { font-size:clamp(2.2rem,5vw,3.6rem); font-weight:900; color:#fff; line-height:1.18; letter-spacing:-0.02em; margin-bottom:20px; }
+  .hero h1 { font-size:clamp(2.2rem,5vw,3.6rem); font-weight:900; color:#fff; line-height:1.2; letter-spacing:-0.02em; margin-bottom:20px; }
   .hero h1 em { font-style:normal; color:#fcd34d; }
-  .hero-sub { font-size:1.05rem; color:rgba(255,255,255,0.78); line-height:1.85; margin-bottom:40px; max-width:480px; }
-  .hero-btns { display:flex; gap:14px; flex-wrap:wrap; margin-bottom:56px; }
-  .btn-hero-p { background:linear-gradient(135deg,#e8a020,#c47d10); color:#fff; padding:16px 36px; border-radius:8px; font-weight:800; font-size:1rem; box-shadow:0 6px 24px rgba(232,160,32,0.4); transition:transform 0.2s,box-shadow 0.2s; }
-  .btn-hero-p:hover { transform:translateY(-2px); box-shadow:0 10px 32px rgba(232,160,32,0.5); }
+  .hero-sub { font-size:1.02rem; color:rgba(255,255,255,0.78); line-height:1.9; margin-bottom:40px; max-width:500px; }
+  .hero-btns { display:flex; gap:14px; flex-wrap:wrap; margin-bottom:52px; }
+  .btn-hero-p { background:linear-gradient(135deg,#2d7a3e,#1e5c2d); color:#fff; padding:16px 36px; border-radius:8px; font-weight:800; font-size:0.98rem; box-shadow:0 6px 24px rgba(45,122,62,0.4); transition:transform 0.2s,box-shadow 0.2s; }
+  .btn-hero-p:hover { transform:translateY(-2px); box-shadow:0 10px 32px rgba(45,122,62,0.5); }
   .btn-hero-s { border:2px solid rgba(255,255,255,0.4); color:#fff; padding:14px 32px; border-radius:8px; font-weight:700; font-size:0.95rem; transition:background 0.2s; }
   .btn-hero-s:hover { background:rgba(255,255,255,0.12); }
   .hero-trust { display:flex; gap:28px; flex-wrap:wrap; padding-top:36px; border-top:1px solid rgba(255,255,255,0.18); }
@@ -230,28 +230,71 @@ HOME_HTML = """<!DOCTYPE html>
   .trust-dot { width:8px; height:8px; border-radius:50%; background:#fcd34d; flex-shrink:0; }
 
   /* NUMBERS */
-  .numbers { background:#0f3460; padding:56px 24px; }
+  .numbers { background:#0f3460; padding:52px 24px; }
   .num-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:0; max-width:960px; margin:0 auto; }
   @media(max-width:640px){.num-grid{grid-template-columns:repeat(2,1fr);}}
-  .num-item { text-align:center; padding:28px 16px; border-right:1px solid rgba(255,255,255,0.12); }
+  .num-item { text-align:center; padding:24px 16px; border-right:1px solid rgba(255,255,255,0.12); }
   .num-item:last-child { border-right:none; }
   .num-val { font-size:2.4rem; font-weight:900; color:#fcd34d; line-height:1; }
   .num-unit { font-size:0.85rem; color:#fcd34d; }
   .num-label { font-size:0.78rem; color:rgba(255,255,255,0.55); margin-top:6px; }
 
-  /* SERVICES */
-  .services { background:#fff; }
-  .svc-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:24px; margin-top:56px; }
-  @media(max-width:760px){.svc-grid{grid-template-columns:1fr;}}
-  .svc-card { border-radius:20px; overflow:hidden; border:1px solid #e5e7eb; transition:box-shadow 0.3s,transform 0.3s; }
-  .svc-card:hover { box-shadow:0 12px 40px rgba(0,0,0,0.1); transform:translateY(-4px); }
-  .svc-img { width:100%; height:200px; object-fit:cover; }
-  .svc-body { padding:28px; }
-  .svc-icon { font-size:1.8rem; margin-bottom:12px; }
-  .svc-body h3 { font-size:1.2rem; font-weight:900; color:#0f172a; margin-bottom:10px; }
-  .svc-body p { font-size:0.88rem; color:#4b5563; line-height:1.8; margin-bottom:16px; }
-  .svc-link { font-size:0.84rem; font-weight:700; color:#0f3460; display:inline-flex; align-items:center; gap:4px; }
-  .svc-link::after { content:'→'; }
+  /* PERSONA */
+  .persona { background:#f7f9fb; padding:80px 24px; }
+  .persona-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-top:44px; }
+  @media(max-width:768px){ .persona-grid { grid-template-columns:repeat(2,1fr); } }
+  @media(max-width:480px){ .persona-grid { grid-template-columns:1fr; } }
+  .persona-card { background:#fff; border-radius:16px; padding:24px 20px; border:1.5px solid #e5e7eb; transition:border-color 0.2s,box-shadow 0.2s; }
+  .persona-card:hover { border-color:#0f3460; box-shadow:0 4px 20px rgba(15,52,96,0.08); }
+  .persona-ico { font-size:1.8rem; margin-bottom:12px; }
+  .persona-card h4 { font-size:0.9rem; font-weight:800; color:#0f172a; margin-bottom:8px; line-height:1.4; }
+  .persona-card p { font-size:0.8rem; color:#6b7280; line-height:1.7; }
+
+  /* JOURNEY SERVICES */
+  .services { background:#fff; padding:92px 24px; }
+  .journey-wrap { margin-top:60px; display:flex; flex-direction:column; gap:0; }
+
+  /* STEP 1: 空き家（入口） */
+  .je-entry { background:#f0faf3; border:1.5px solid #a7d4b3; border-radius:20px; padding:36px 40px; display:flex; align-items:center; gap:32px; position:relative; }
+  @media(max-width:768px){ .je-entry { flex-direction:column; padding:28px 24px; gap:20px; } }
+  .je-step-label { position:absolute; top:-14px; left:32px; background:#2d7a3e; color:#fff; font-size:0.68rem; font-weight:800; letter-spacing:0.12em; padding:4px 14px; border-radius:20px; }
+  .je-icon-wrap { width:72px; height:72px; border-radius:16px; background:#fff; border:1.5px solid #a7d4b3; display:flex; align-items:center; justify-content:center; font-size:2.2rem; flex-shrink:0; }
+  .je-text { flex:1; }
+  .je-text h3 { font-size:1.15rem; font-weight:900; color:#1e5c2d; margin-bottom:8px; }
+  .je-text p { font-size:0.88rem; color:#374151; line-height:1.8; }
+  .je-free { background:#2d7a3e; color:#fff; font-size:0.7rem; font-weight:800; letter-spacing:0.1em; padding:5px 14px; border-radius:20px; white-space:nowrap; flex-shrink:0; }
+  .je-link { display:inline-flex; align-items:center; gap:4px; margin-top:12px; font-size:0.85rem; font-weight:700; color:#2d7a3e; }
+  .je-link::after { content:'→'; }
+
+  /* ARROW */
+  .journey-arrow { text-align:center; padding:20px 0; color:#9ca3af; font-size:0.82rem; font-weight:600; display:flex; align-items:center; justify-content:center; gap:8px; }
+  .journey-arrow::before, .journey-arrow::after { content:''; display:block; width:60px; height:1px; background:#e5e7eb; }
+
+  /* STEP 2: 不動産コンサル（本業） */
+  .jm-main { background:linear-gradient(135deg,#0f3460 0%,#1a4a7a 100%); border-radius:20px; padding:48px 48px; position:relative; overflow:hidden; }
+  @media(max-width:768px){ .jm-main { padding:36px 24px; } }
+  .jm-main::before { content:''; position:absolute; right:-60px; top:-60px; width:280px; height:280px; border-radius:50%; background:rgba(255,255,255,0.04); }
+  .jm-step-label { display:inline-block; background:rgba(252,211,77,0.2); color:#fcd34d; font-size:0.68rem; font-weight:800; letter-spacing:0.12em; padding:4px 14px; border-radius:20px; margin-bottom:20px; }
+  .jm-inner { display:grid; grid-template-columns:1fr 1fr; gap:48px; align-items:start; }
+  @media(max-width:768px){ .jm-inner { grid-template-columns:1fr; gap:28px; } }
+  .jm-left h3 { font-size:clamp(1.4rem,2.5vw,1.9rem); font-weight:900; color:#fff; line-height:1.3; margin-bottom:14px; }
+  .jm-left p { font-size:0.9rem; color:rgba(255,255,255,0.72); line-height:1.85; margin-bottom:28px; }
+  .btn-gold { display:inline-flex; align-items:center; gap:8px; background:linear-gradient(135deg,#e8a020,#c47d10); color:#fff; padding:14px 28px; border-radius:8px; font-weight:800; font-size:0.9rem; box-shadow:0 6px 20px rgba(232,160,32,0.35); transition:transform 0.2s; }
+  .btn-gold:hover { transform:translateY(-2px); }
+  .jm-axes { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+  .jm-axis { background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.12); border-radius:12px; padding:18px 20px; }
+  .jm-axis-ico { font-size:1.4rem; margin-bottom:8px; }
+  .jm-axis h4 { font-size:0.85rem; font-weight:800; color:#fff; margin-bottom:4px; }
+  .jm-axis p { font-size:0.78rem; color:rgba(255,255,255,0.55); line-height:1.6; }
+
+  /* STEP 3: M&A（奥・控えめ） */
+  .jb-back { background:#f8f9fa; border:1px solid #e5e7eb; border-radius:16px; padding:24px 32px; display:flex; align-items:center; gap:20px; flex-wrap:wrap; margin-top:0; }
+  .jb-ico { font-size:1.6rem; flex-shrink:0; }
+  .jb-text { flex:1; min-width:200px; }
+  .jb-text strong { font-size:0.92rem; font-weight:800; color:#374151; display:block; margin-bottom:4px; }
+  .jb-text span { font-size:0.82rem; color:#6b7280; line-height:1.7; }
+  .jb-link { display:inline-flex; align-items:center; gap:4px; font-size:0.82rem; font-weight:700; color:#6b7280; border:1px solid #d1d5db; padding:8px 18px; border-radius:8px; transition:color 0.2s,border-color 0.2s; white-space:nowrap; }
+  .jb-link:hover { color:#0f3460; border-color:#0f3460; }
 
   /* AKIYA FEATURE */
   .akiya-feature { background:linear-gradient(135deg,#0f3460 0%,#16534a 100%); padding:92px 24px; }
@@ -266,8 +309,8 @@ HOME_HTML = """<!DOCTYPE html>
   .af-points { list-style:none; margin-bottom:36px; }
   .af-points li { display:flex; align-items:flex-start; gap:10px; font-size:0.9rem; color:rgba(255,255,255,0.85); padding:8px 0; border-bottom:1px solid rgba(255,255,255,0.1); }
   .af-points li::before { content:'✓'; color:#fcd34d; font-weight:900; flex-shrink:0; margin-top:2px; }
-  .btn-gold { background:linear-gradient(135deg,#e8a020,#c47d10); color:#fff; padding:14px 32px; border-radius:8px; font-weight:800; font-size:0.95rem; box-shadow:0 6px 20px rgba(232,160,32,0.35); transition:transform 0.2s; display:inline-flex; align-items:center; gap:8px; }
-  .btn-gold:hover { transform:translateY(-2px); }
+  .btn-gold-af { background:linear-gradient(135deg,#e8a020,#c47d10); color:#fff; padding:14px 32px; border-radius:8px; font-weight:800; font-size:0.95rem; box-shadow:0 6px 20px rgba(232,160,32,0.35); transition:transform 0.2s; display:inline-flex; align-items:center; gap:8px; }
+  .btn-gold-af:hover { transform:translateY(-2px); }
 
   /* STRENGTHS */
   .strengths { background:#f7f9fb; }
@@ -283,97 +326,166 @@ HOME_HTML = """<!DOCTYPE html>
   /* CTA */
   .cta-section { background:#fff; }
   .cta-box { background:linear-gradient(135deg,#0f3460,#16534a); border-radius:24px; padding:64px 48px; text-align:center; color:#fff; }
+  @media(max-width:640px){ .cta-box { padding:44px 24px; } }
   .cta-box h2 { font-size:clamp(1.7rem,3vw,2.4rem); font-weight:900; margin-bottom:14px; }
   .cta-box p { font-size:1rem; color:rgba(255,255,255,0.75); margin-bottom:36px; }
   .cta-btns { display:flex; gap:14px; justify-content:center; flex-wrap:wrap; }
   .btn-white { background:#fff; color:#0f3460; padding:14px 32px; border-radius:8px; font-weight:800; font-size:0.95rem; transition:opacity 0.2s; }
   .btn-white:hover { opacity:0.9; }
+  .btn-white-outline { border:2px solid rgba(255,255,255,0.5); color:#fff; padding:14px 32px; border-radius:8px; font-weight:700; font-size:0.93rem; transition:background 0.2s; }
+  .btn-white-outline:hover { background:rgba(255,255,255,0.1); }
 </style>
 </head>
 <body>
 %(NAV)s
+
+<!-- ─── HERO ─── -->
 <section class="hero">
   <div class="hero-bg"></div>
   <div class="hero-inner">
-    <div class="hero-eyebrow">不動産×AI×M&A 総合コンサルティング</div>
-    <h1>不動産の未来を、<br><em>ともに創る。</em></h1>
-    <p class="hero-sub">有限会社ギグスは、不動産売買仲介・空き家ビジネス・M&A仲介を通じてお客様の大切な資産を守り、最大化します。2006年の創業以来、誠実さと専門性でお客様のご期待にお応えしてきました。</p>
+    <div class="hero-eyebrow">地主・不動産オーナーの方へ</div>
+    <h1>物件のことも、<br>会社の将来も。<br><em>ひとつの窓口で。</em></h1>
+    <p class="hero-sub">空き家の確認から始まり、資産活用のご相談、そして必要なら事業の承継まで。ギグスはあなたの状況を丸ごと知っている、長期パートナーでありたいと思っています。</p>
     <div class="hero-btns">
-      <a href="/akiya" class="btn-hero-p">空き家ビジネスを見る</a>
-      <a href="/contact" class="btn-hero-s">無料相談はこちら</a>
+      <a href="/akiya" class="btn-hero-p">まず空き家の状態を確認する（無料）</a>
+      <a href="/contact" class="btn-hero-s">不動産の相談をする</a>
     </div>
     <div class="hero-trust">
-      <div class="trust-pill"><span class="trust-dot"></span>創業2006年</div>
-      <div class="trust-pill"><span class="trust-dot"></span>宅地建物取引業免許 取得</div>
-      <div class="trust-pill"><span class="trust-dot"></span>AI×不動産 最先端対応</div>
+      <div class="trust-pill"><span class="trust-dot"></span>創業2006年・18年の実績</div>
+      <div class="trust-pill"><span class="trust-dot"></span>宅建士・不動産コンサルマスター</div>
+      <div class="trust-pill"><span class="trust-dot"></span>秘密厳守・しつこい営業なし</div>
     </div>
   </div>
 </section>
 
+<!-- ─── NUMBERS ─── -->
 <div class="numbers">
   <div class="num-grid">
-    <div class="num-item"><div class="num-val">18<span class="num-unit">年</span></div><div class="num-label">創業からの実績</div></div>
-    <div class="num-item"><div class="num-val">AI<span class="num-unit">活用</span></div><div class="num-label">最先端の調査・分析</div></div>
-    <div class="num-item"><div class="num-val">4<span class="num-unit">事業</span></div><div class="num-label">総合的なサービス展開</div></div>
-    <div class="num-item"><div class="num-val">全国<span class="num-unit">対応</span></div><div class="num-label">ご相談・調査対応エリア</div></div>
+    <div class="num-item"><div class="num-val">18<span class="num-unit">年</span></div><div class="num-label">不動産業界での実績</div></div>
+    <div class="num-item"><div class="num-val">宅建<span class="num-unit">士</span></div><div class="num-label">コンサルマスター取得</div></div>
+    <div class="num-item"><div class="num-val">無料<span class="num-unit">から</span></div><div class="num-label">空き家確認スタート</div></div>
+    <div class="num-item"><div class="num-val">全国<span class="num-unit">対応</span></div><div class="num-label">ご相談・調査エリア</div></div>
   </div>
 </div>
 
+<!-- ─── PERSONA ─── -->
+<section class="persona">
+  <div class="si">
+    <div class="tc">
+      <span class="tag tag-navy">OWNER'S CONCERNS</span>
+      <h2 class="h2">こんな方にご相談いただいています</h2>
+      <p class="lead">「不動産を持っているオーナー」に共通する悩みに、ひとつの窓口でお応えします。</p>
+    </div>
+    <div class="persona-grid">
+      <div class="persona-card">
+        <div class="persona-ico">🏠</div>
+        <h4>遠方の実家や空き家が気になっている</h4>
+        <p>「特に困っていないが、少し気になる」という方。まず現状確認だけでも。</p>
+      </div>
+      <div class="persona-card">
+        <div class="persona-ico">📋</div>
+        <h4>相続した物件の活用をどうすべきか迷っている</h4>
+        <p>売る・貸す・維持する——選択肢の整理からお手伝いします。</p>
+      </div>
+      <div class="persona-card">
+        <div class="persona-ico">🏗️</div>
+        <h4>土地や物件をもっと活かしたいと思っている</h4>
+        <p>賃貸経営・土地活用・売却タイミングなど戦略的に考えたい方へ。</p>
+      </div>
+      <div class="persona-card">
+        <div class="persona-ico">🤝</div>
+        <h4>会社や事業の将来について考え始めている</h4>
+        <p>後継者がいない、売却を考えている。まず話を聞いてほしい方へ。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── JOURNEY SERVICES ─── -->
 <section class="services" id="services">
   <div class="si">
     <div class="tc">
       <span class="tag tag-navy">SERVICES</span>
-      <h2 class="h2">サービス一覧</h2>
-      <p class="lead">不動産に関するあらゆるご相談に、ワンストップで対応します。</p>
+      <h2 class="h2">オーナーの「次の一手」を、段階的にサポート</h2>
+      <p class="lead">まず気軽に話せる入口から始まり、本格的な資産活用の相談へ。必要な方には事業の出口まで。ギグスはそのすべてに対応できる存在です。</p>
     </div>
-    <div class="svc-grid">
-      <div class="svc-card">
-        <img src="/static/images/service_akiya.png" class="svc-img" onerror="this.parentElement.querySelector('.svc-icon').style.fontSize='4rem'" alt="空き家ビジネス">
-        <div class="svc-body">
-          <div class="svc-icon">🏚️</div>
-          <h3>空き家ビジネス</h3>
-          <p>放置された空き家の調査・管理代行・売却・賃貸仲介・リノベーション提案まで。AI技術を活用した現地調査報告書で、迅速かつ正確な資産評価を実現します。</p>
-          <a href="/akiya" class="svc-link">詳しく見る</a>
+
+    <div class="journey-wrap">
+
+      <!-- STEP 1: 空き家（入口） -->
+      <div class="je-entry">
+        <span class="je-step-label">STEP 1 ── まずはここから</span>
+        <div class="je-icon-wrap">🏠</div>
+        <div class="je-text">
+          <h3>空き家の「今の状態」を、無料でお伝えします</h3>
+          <p>お困りでなくても大丈夫です。「少し気になる」という段階で十分。外観確認・写真共有・簡単なコメントを無料で行います。文京区を中心に対応。判断はそのあとで。</p>
+          <a href="/akiya" class="je-link">空き家サービスの詳細を見る</a>
+        </div>
+        <span class="je-free">無料から</span>
+      </div>
+
+      <!-- ARROW -->
+      <div class="journey-arrow">そのまま、資産活用のご相談へ</div>
+
+      <!-- STEP 2: 不動産コンサル（本業） -->
+      <div class="jm-main">
+        <span class="jm-step-label">CORE — 本業・中核サービス</span>
+        <div class="jm-inner">
+          <div class="jm-left">
+            <h3>物件を、どう活かすか。<br>一緒に考えます。</h3>
+            <p>売る・貸す・活用する・相続に備える——正解はお客様の状況によって変わります。18年の経験と宅建士・不動産コンサルマスターの資格で、あなたに合ったプランを提案します。営業はしません。まず話を聞かせてください。</p>
+            <a href="/contact" class="btn-gold">不動産の相談をする →</a>
+          </div>
+          <div class="jm-axes">
+            <div class="jm-axis">
+              <div class="jm-axis-ico">🏷️</div>
+              <h4>売却・売買仲介</h4>
+              <p>住宅・ビル・土地。適正価格での売却を丁寧にサポート。</p>
+            </div>
+            <div class="jm-axis">
+              <div class="jm-axis-ico">🏘️</div>
+              <h4>賃貸・土地活用</h4>
+              <p>遊んでいる物件を収益化。最適な活用方法をご提案。</p>
+            </div>
+            <div class="jm-axis">
+              <div class="jm-axis-ico">⚖️</div>
+              <h4>相続・資産対策</h4>
+              <p>相続が発生する前から。税対策・名義変更の整理まで。</p>
+            </div>
+            <div class="jm-axis">
+              <div class="jm-axis-ico">📊</div>
+              <h4>資産運用・戦略</h4>
+              <p>複数物件のポートフォリオ最適化。長期的視点で助言。</p>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="svc-card">
-        <img src="/static/images/service_re.png" class="svc-img" onerror="this.style.display='none'" alt="不動産売買仲介">
-        <div class="svc-body">
-          <div class="svc-icon">🏢</div>
-          <h3>不動産売買仲介</h3>
-          <p>住宅・ビル・土地の売買仲介を専門家が丁寧にサポート。豊富な経験と市場分析で、最適な価格での取引を実現します。</p>
-          <a href="/contact" class="svc-link">お問い合わせ</a>
+
+      <!-- ARROW -->
+      <div class="journey-arrow">さらに必要な方へ</div>
+
+      <!-- STEP 3: M&A（奥・控えめ） -->
+      <div class="jb-back">
+        <span class="jb-ico">🤝</span>
+        <div class="jb-text">
+          <strong>事業承継・M&A仲介</strong>
+          <span>会社や事業の将来についても、ご相談いただけます。後継者問題・売却・買収——内容を問わず、まず話を聞かせてください。秘密厳守で対応します。</span>
         </div>
+        <a href="/contact?subject=ma" class="jb-link">個別相談へ →</a>
       </div>
-      <div class="svc-card">
-        <img src="/static/images/service_consult.png" class="svc-img" onerror="this.style.display='none'" alt="不動産コンサルティング">
-        <div class="svc-body">
-          <div class="svc-icon">📊</div>
-          <h3>不動産コンサルティング</h3>
-          <p>資産運用・相続対策・土地活用など、不動産に関する戦略的なアドバイスを提供。お客様の状況に合わせた最適なプランをご提案します。</p>
-          <a href="/contact" class="svc-link">お問い合わせ</a>
-        </div>
-      </div>
-      <div class="svc-card">
-        <img src="/static/images/service_ma.png" class="svc-img" onerror="this.style.display='none'" alt="M&A仲介">
-        <div class="svc-body">
-          <div class="svc-icon">🤝</div>
-          <h3>M&A仲介</h3>
-          <p>不動産会社・管理会社・建設会社のM&A仲介サービス。買収・売却・事業継承のご相談を秘密厳守で承ります。</p>
-          <a href="/contact" class="svc-link">お問い合わせ</a>
-        </div>
-      </div>
-    </div>
+
+    </div><!-- /journey-wrap -->
   </div>
 </section>
 
+<!-- ─── AKIYA FEATURE ─── -->
 <section class="akiya-feature">
   <div class="af-inner">
     <div class="af-img">
-      <img src="/static/images/akiya_hero.png" onerror="this.parentElement.style.background='linear-gradient(135deg,#0a2040,#0f3460)';this.remove()" alt="空き家ビジネス">
+      <img src="/static/images/akiya_hero.png" onerror="this.parentElement.style.background='linear-gradient(135deg,#0a2040,#0f3460)';this.remove()" alt="空き家管理サポート">
     </div>
     <div class="af-content">
-      <span class="af-tag">空き家管理サポート</span>
+      <span class="af-tag">空き家管理サポート ── まずはここから</span>
       <h2>空き家の"今の状態"を、<br>まず無料でお伝えします。</h2>
       <p>特にお困りでなくても大丈夫です。「少し気になる」という段階で、いきなり管理を勧めることはしません。まず現在の状態をお伝えし、判断はそのあとで。文京区を中心に対応しています。</p>
       <ul class="af-points">
@@ -382,48 +494,51 @@ HOME_HTML = """<!DOCTYPE html>
         <li>草刈り・清掃・修繕などの個別対応も承ります</li>
         <li>遠方にお住まいの方も安心してご相談ください</li>
       </ul>
-      <a href="/akiya" class="btn-gold">空き家サービスの詳細を見る →</a>
+      <a href="/akiya" class="btn-gold-af">空き家サービスの詳細を見る →</a>
     </div>
   </div>
 </section>
 
+<!-- ─── STRENGTHS ─── -->
 <section class="strengths">
   <div class="si">
     <div class="tc">
       <span class="tag tag-green">WHY GIGS</span>
-      <h2 class="h2">ギグスが選ばれる理由</h2>
+      <h2 class="h2">オーナーがギグスを選ぶ理由</h2>
+      <p class="lead">「この人に任せれば大丈夫」と思っていただけるよう、3つのことを大切にしています。</p>
     </div>
     <div class="str-grid">
       <div class="str-card">
         <div class="str-num">01</div>
-        <div class="str-icon">🔬</div>
-        <h3>AI技術で精度の高い調査</h3>
-        <p>最先端のAI（Claude Vision API）を活用した現地調査報告書を提供。写真分析で正確な物件状況を把握し、迅速な意思決定をサポートします。</p>
+        <div class="str-icon">🛡️</div>
+        <h3>しつこい営業・特別な契約、一切なし</h3>
+        <p>「まず話を聞くだけ」で構いません。相談したからといって、契約を急かすことはしません。お客様のペースを尊重します。</p>
       </div>
       <div class="str-card">
         <div class="str-num">02</div>
-        <div class="str-icon">🛡️</div>
-        <h3>18年の実績と信頼</h3>
-        <p>2006年の創業以来、不動産売買仲介・コンサルティング・M&Aで培ってきた経験と信頼。宅地建物取引業免許を取得した専門家集団です。</p>
+        <div class="str-icon">📋</div>
+        <h3>不動産×M&Aを一人で見られる専門家</h3>
+        <p>宅建士・不動産コンサルマスター・AFPを保有。物件の相談が、いつのまにか事業の将来の話になっても、同じ窓口で対応できます。</p>
       </div>
       <div class="str-card">
         <div class="str-num">03</div>
-        <div class="str-icon">💬</div>
-        <h3>丁寧で迅速な対応</h3>
-        <p>お問い合わせから2営業日以内に返答。お客様一人ひとりの状況を丁寧にヒアリングし、最適な解決策をご提案します。</p>
+        <div class="str-icon">⏱️</div>
+        <h3>2営業日以内に返答。迅速・丁寧に</h3>
+        <p>お問い合わせから2営業日以内にご連絡します。お客様一人ひとりの状況をヒアリングした上で、最適な提案をします。</p>
       </div>
     </div>
   </div>
 </section>
 
+<!-- ─── CTA ─── -->
 <section class="cta-section">
   <div class="si">
     <div class="cta-box">
-      <h2>まずはお気軽に<br>ご相談ください</h2>
-      <p>空き家・不動産・M&Aに関するご相談は無料です。<br>専門スタッフが丁寧にお答えします。</p>
+      <h2>物件のことも、会社の将来も、<br>まずご相談ください</h2>
+      <p>空き家の無料確認から、不動産活用、事業承継まで。<br>ギグスはオーナーの長期パートナーです。</p>
       <div class="cta-btns">
-        <a href="/contact" class="btn-white">無料相談フォームへ</a>
-        <a href="/akiya" style="border:2px solid rgba(255,255,255,0.5);color:#fff;padding:14px 32px;border-radius:8px;font-weight:700;font-size:0.93rem;">空き家ビジネスを見る</a>
+        <a href="/akiya" class="btn-white">空き家の状態を確認する（無料）</a>
+        <a href="/contact" class="btn-white-outline">不動産・その他の相談をする</a>
       </div>
     </div>
   </div>
