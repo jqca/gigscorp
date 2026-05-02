@@ -192,7 +192,7 @@ FOOTER_HTML = """
       </div>
     </div>
     <div class="footer-bottom">
-      <p>&copy; 2024 有限会社ギグス (GIGS CORP.) All rights reserved.</p>
+      <p>&copy; 2026 有限会社ギグス (GIGS CORP.) All rights reserved.</p>
       <div class="footer-license">
         宅地建物取引士 / 1級建築施工管理技士<br>
         不動産コンサルティングマスター / AFP
@@ -351,7 +351,7 @@ HOME_HTML = """<!DOCTYPE html>
       <a href="/contact" class="btn-hero-s">不動産の相談をする</a>
     </div>
     <div class="hero-trust">
-      <div class="trust-pill"><span class="trust-dot"></span>創業2006年・18年の実績</div>
+      <div class="trust-pill"><span class="trust-dot"></span>創業2006年・20年の実績</div>
       <div class="trust-pill"><span class="trust-dot"></span>宅建士・不動産コンサルマスター</div>
       <div class="trust-pill"><span class="trust-dot"></span>秘密厳守・しつこい営業なし</div>
     </div>
@@ -361,7 +361,7 @@ HOME_HTML = """<!DOCTYPE html>
 <!-- ─── NUMBERS ─── -->
 <div class="numbers">
   <div class="num-grid">
-    <div class="num-item"><div class="num-val">18<span class="num-unit">年</span></div><div class="num-label">不動産業界での実績</div></div>
+    <div class="num-item"><div class="num-val">20<span class="num-unit">年</span></div><div class="num-label">不動産業界での実績</div></div>
     <div class="num-item"><div class="num-val">宅建<span class="num-unit">士</span></div><div class="num-label">コンサルマスター取得</div></div>
     <div class="num-item"><div class="num-val">無料<span class="num-unit">から</span></div><div class="num-label">空き家確認スタート</div></div>
     <div class="num-item"><div class="num-val">全国<span class="num-unit">対応</span></div><div class="num-label">ご相談・調査エリア</div></div>
@@ -433,7 +433,7 @@ HOME_HTML = """<!DOCTYPE html>
         <div class="jm-inner">
           <div class="jm-left">
             <h3>物件を、どう活かすか。<br>一緒に考えます。</h3>
-            <p>売る・貸す・活用する・相続に備える——正解はお客様の状況によって変わります。18年の経験と宅建士・不動産コンサルマスターの資格で、あなたに合ったプランを提案します。営業はしません。まず話を聞かせてください。</p>
+            <p>売る・貸す・活用する・相続に備える——正解はお客様の状況によって変わります。20年の経験と宅建士・不動産コンサルマスターの資格で、あなたに合ったプランを提案します。営業はしません。まず話を聞かせてください。</p>
             <a href="/contact" class="btn-gold">不動産の相談をする →</a>
           </div>
           <div class="jm-axes">
