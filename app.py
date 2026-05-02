@@ -119,7 +119,7 @@ COMMON_CSS = """
 """
 
 def nav_html(active=""):
-    pages = [("ホーム","/"),("空き家ビジネス","/akiya"),("会社概要","/company"),("お問い合わせ","/contact")]
+    pages = [("ホーム","/"),("空き家サービス","/akiya"),("会社概要","/company"),("お問い合わせ","/contact")]
     links = "".join(f'<li><a href="{u}">{n}</a></li>' for n,u in pages)
     return f"""
 <nav>
@@ -132,6 +132,26 @@ def nav_html(active=""):
   </a>
   <ul class="nav-links">{links}</ul>
   <a href="/contact" class="nav-cta">無料相談はこちら</a>
+</nav>"""
+
+def akiya_nav_html():
+    """空き家サービスページ専用ナビ"""
+    return """
+<nav>
+  <a href="/akiya" class="nav-brand" style="text-decoration:none;">
+    <div class="nav-logo-mark" style="width:36px;height:36px;font-size:1.4rem;display:flex;align-items:center;justify-content:center;">🏠</div>
+    <div class="nav-logo-text">
+      <div class="nav-logo-ja" style="font-size:0.88rem;">空き家管理サポート</div>
+      <div class="nav-logo-en" style="font-size:0.6rem;">有限会社ギグス</div>
+    </div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="/akiya/service">サービスについて</a></li>
+    <li><a href="/akiya/service#price">料金の目安</a></li>
+    <li><a href="/akiya#faq">よくある質問</a></li>
+    <li><a href="/company">会社案内</a></li>
+  </ul>
+  <a href="/contact?subject=akiya_free" class="nav-cta" style="background:linear-gradient(135deg,#2d7a3e,#1e5c2d);">無料で状態を確認する</a>
 </nav>"""
 
 FOOTER_HTML = """
@@ -353,16 +373,16 @@ HOME_HTML = """<!DOCTYPE html>
       <img src="/static/images/akiya_hero.png" onerror="this.parentElement.style.background='linear-gradient(135deg,#0a2040,#0f3460)';this.remove()" alt="空き家ビジネス">
     </div>
     <div class="af-content">
-      <span class="af-tag">NEW BUSINESS</span>
-      <h2>放置された空き家を、<br>価値ある資産へ。</h2>
-      <p>全国の空き家は約900万戸（総務省調査）。放置するリスクを解消し、資産価値を取り戻すお手伝いをします。ギグスのAI活用調査で、迅速・正確・低コストを実現。</p>
+      <span class="af-tag">空き家管理サポート</span>
+      <h2>空き家の"今の状態"を、<br>まず無料でお伝えします。</h2>
+      <p>特にお困りでなくても大丈夫です。「少し気になる」という段階で、いきなり管理を勧めることはしません。まず現在の状態をお伝えし、判断はそのあとで。文京区を中心に対応しています。</p>
       <ul class="af-points">
-        <li>AI技術を活用した現地調査報告書の自動生成</li>
-        <li>空き家の管理代行から売却・賃貸仲介まで一貫サポート</li>
-        <li>リノベーション提案で資産価値を最大化</li>
-        <li>相続空き家・遠方物件のご相談も対応</li>
+        <li>外観確認・写真共有・簡単なコメントを無料で実施</li>
+        <li>AIライトプランは月3,000円から。必要な方だけご利用ください</li>
+        <li>草刈り・清掃・修繕などの個別対応も承ります</li>
+        <li>遠方にお住まいの方も安心してご相談ください</li>
       </ul>
-      <a href="/akiya" class="btn-gold">空き家ビジネスの詳細を見る →</a>
+      <a href="/akiya" class="btn-gold">空き家サービスの詳細を見る →</a>
     </div>
   </div>
 </section>
@@ -413,479 +433,250 @@ HOME_HTML = """<!DOCTYPE html>
 </body></html>"""
 
 # ─────────────────────────────────────────────────────────────
-#  空き家ビジネスページ
+#  空き家サービス TOPページ
 # ─────────────────────────────────────────────────────────────
 AKIYA_HTML = """<!DOCTYPE html>
 <html lang="ja"><head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>空き家ビジネス | 有限会社ギグス</title>
-<meta name="description" content="放置された空き家を価値ある資産へ。AI技術を活用した現地調査・管理代行・売却仲介・リノベーション提案。有限会社ギグスの空き家ビジネスサービス。">
+<title>空き家の今の状態を無料でお伝えします | 空き家管理サポート（有限会社ギグス）</title>
+<meta name="description" content="特にお困りでなくても大丈夫です。まずは空き家の今の状態だけ確認してみませんか。外観確認・写真共有・簡単なコメントを無料で行います。文京区の空き家管理なら有限会社ギグス。">
 %(CSS)s
 <style>
-  .ak-hero { position:relative; min-height:80vh; display:flex; align-items:center; padding:120px 40px 80px; overflow:hidden; }
-  .ak-hero-bg { position:absolute; inset:0; background:url('/static/images/akiya_hero.png') center/cover; }
-  .ak-hero-bg::after { content:''; position:absolute; inset:0; background:linear-gradient(100deg,rgba(5,20,10,0.9) 0%,rgba(5,20,10,0.7) 55%,rgba(5,20,10,0.35) 100%); }
-  .ak-hero-inner { position:relative; z-index:1; max-width:620px; }
-  .ak-hero h1 { font-size:clamp(2rem,4.5vw,3.2rem); font-weight:900; color:#fff; line-height:1.2; margin-bottom:20px; letter-spacing:-0.02em; }
-  .ak-hero h1 em { font-style:normal; color:#6ee7b7; }
-  .ak-hero p { font-size:1.05rem; color:rgba(255,255,255,0.78); line-height:1.85; margin-bottom:36px; }
-  .stat-pills { display:flex; gap:14px; flex-wrap:wrap; margin-bottom:40px; }
-  .stat-pill { background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.2); color:#fff; padding:10px 18px; border-radius:8px; font-size:0.82rem; font-weight:600; }
-  .stat-pill strong { color:#6ee7b7; font-size:1rem; }
+  /* ── AKIYA TOP PAGE STYLES ── */
+  :root { --g: #2d7a3e; --gl: #e8f5ed; --gb: #a7d4b3; --gd: #1e5c2d; --navy: #1d3461; }
 
-  /* PROBLEM */
-  .problem { background:#fff; }
-  .prob-grid { display:grid; grid-template-columns:1fr 1fr; gap:48px; align-items:center; margin-top:56px; }
-  @media(max-width:768px){.prob-grid{grid-template-columns:1fr;}}
-  .prob-img { border-radius:20px; overflow:hidden; box-shadow:0 12px 40px rgba(0,0,0,0.12); }
-  .prob-img img { width:100%; height:360px; object-fit:cover; }
-  .prob-stats { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:32px; }
-  .ps-item { background:#fef2f2; border-radius:12px; padding:20px; text-align:center; }
-  .ps-num { font-size:2rem; font-weight:900; color:#dc2626; }
-  .ps-label { font-size:0.78rem; color:#6b7280; margin-top:4px; }
+  /* HERO */
+  .ak-hero { position:relative; min-height:90vh; display:flex; align-items:center; padding:100px 40px 60px; overflow:hidden; background:#fff; }
+  .ak-hero-bg { position:absolute; right:0; top:0; bottom:0; width:50%; background:url('/static/images/akiya_hero.png') center/cover no-repeat; }
+  .ak-hero-bg::after { content:''; position:absolute; inset:0; background:linear-gradient(to right, rgba(255,255,255,1) 0%, rgba(255,255,255,0.4) 50%, rgba(255,255,255,0) 100%); }
+  @media(max-width:768px){ .ak-hero-bg { width:100%; opacity:0.15; } .ak-hero { min-height:auto; padding:100px 24px 56px; } }
+  .ak-hero-inner { position:relative; z-index:1; max-width:540px; }
+  .ak-eyebrow { display:inline-block; background:#f0f9f3; border:1px solid var(--gb); color:var(--g); font-size:0.82rem; font-weight:700; padding:6px 16px; border-radius:20px; margin-bottom:24px; }
+  .ak-hero h1 { font-size:clamp(1.8rem,4vw,2.8rem); font-weight:900; color:#1a1a2e; line-height:1.3; margin-bottom:16px; }
+  .ak-hero h1 em { font-style:normal; color:var(--g); }
+  .ak-hero-sub { font-size:1rem; color:#4b5563; line-height:1.85; margin-bottom:36px; }
+  .ak-hero-btns { display:flex; gap:12px; flex-wrap:wrap; }
+  .btn-green { display:inline-flex; align-items:center; gap:8px; background:linear-gradient(135deg,var(--g),var(--gd)); color:#fff; padding:14px 28px; border-radius:8px; font-weight:800; font-size:0.95rem; box-shadow:0 6px 20px rgba(45,122,62,0.3); transition:transform 0.2s,box-shadow 0.2s; }
+  .btn-green:hover { transform:translateY(-2px); box-shadow:0 10px 28px rgba(45,122,62,0.4); }
+  .btn-green-outline { display:inline-flex; align-items:center; gap:8px; border:2px solid var(--g); color:var(--g); padding:12px 24px; border-radius:8px; font-weight:700; font-size:0.9rem; transition:background 0.2s,color 0.2s; }
+  .btn-green-outline:hover { background:var(--g); color:#fff; }
 
-  /* SOLUTION */
-  .solution { background:#f7f9fb; }
-  .sol-grid { display:grid; grid-template-columns:1fr 1fr; gap:48px; align-items:center; margin-top:56px; }
-  @media(max-width:768px){.sol-grid{grid-template-columns:1fr;}}
-  .sol-img { border-radius:20px; overflow:hidden; box-shadow:0 12px 40px rgba(0,0,0,0.12); }
-  .sol-img img { width:100%; height:360px; object-fit:cover; }
-  .sol-points { list-style:none; margin-top:24px; }
-  .sol-points li { display:flex; gap:14px; padding:14px 0; border-bottom:1px solid #e5e7eb; }
-  .sol-points li:last-child { border-bottom:none; }
-  .sol-ico { width:44px; height:44px; border-radius:10px; background:linear-gradient(135deg,#0f3460,#16534a); display:flex; align-items:center; justify-content:center; font-size:1.3rem; flex-shrink:0; }
-  .sol-text h4 { font-size:0.95rem; font-weight:800; color:#0f172a; margin-bottom:4px; }
-  .sol-text p { font-size:0.84rem; color:#4b5563; line-height:1.75; }
+  /* WHO */
+  .who-sec { background:#f8faf8; padding:72px 24px; }
+  .who-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; margin-top:40px; }
+  @media(max-width:640px){ .who-grid { grid-template-columns:1fr; } }
+  .who-card { background:#fff; border-radius:16px; padding:28px 22px; text-align:center; border:1px solid #e5e7eb; }
+  .who-ico { font-size:2rem; margin-bottom:12px; }
+  .who-card p { font-size:0.9rem; color:#374151; font-weight:600; line-height:1.55; }
 
-  /* AI FEATURE */
-  .ai-feature { background:linear-gradient(135deg,#0f172a,#0f3460); padding:92px 24px; }
-  .ai-inner { max-width:1120px; margin:0 auto; }
-  .ai-card { background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.12); border-radius:24px; padding:48px; display:grid; grid-template-columns:1fr 1fr; gap:48px; align-items:center; }
-  @media(max-width:768px){.ai-card{grid-template-columns:1fr;}}
-  .ai-tag { background:rgba(110,231,183,0.2); color:#6ee7b7; font-size:0.72rem; font-weight:800; letter-spacing:0.15em; padding:5px 14px; border-radius:20px; display:inline-block; margin-bottom:14px; }
-  .ai-card h2 { font-size:clamp(1.6rem,2.8vw,2.2rem); font-weight:900; color:#fff; line-height:1.25; margin-bottom:16px; }
-  .ai-card p { font-size:0.93rem; color:rgba(255,255,255,0.72); line-height:1.85; margin-bottom:24px; }
-  .ai-features { list-style:none; }
-  .ai-features li { display:flex; gap:10px; font-size:0.88rem; color:rgba(255,255,255,0.8); padding:8px 0; border-bottom:1px solid rgba(255,255,255,0.08); }
-  .ai-features li:last-child { border-bottom:none; }
-  .ai-features li::before { content:'⚡'; flex-shrink:0; }
-  .ai-visual { background:rgba(0,0,0,0.3); border-radius:16px; padding:28px; }
-  .ai-report-mock { background:rgba(255,255,255,0.06); border-radius:12px; padding:20px; }
-  .ai-report-mock h4 { font-size:0.8rem; font-weight:700; color:#6ee7b7; margin-bottom:12px; letter-spacing:0.1em; }
-  .ai-field { display:flex; justify-content:space-between; padding:8px 0; border-bottom:1px solid rgba(255,255,255,0.06); font-size:0.82rem; }
-  .ai-field .k { color:rgba(255,255,255,0.5); }
-  .ai-field .v { color:#fff; font-weight:600; }
-  .ai-score { margin-top:16px; text-align:center; }
-  .ai-score-num { font-size:2.8rem; font-weight:900; color:#6ee7b7; }
-  .ai-score-label { font-size:0.75rem; color:rgba(255,255,255,0.5); }
+  /* FREE BOX */
+  .free-sec { background:#fff; padding:72px 24px; }
+  .free-grid { display:grid; grid-template-columns:1fr 1fr; gap:28px; margin-top:40px; }
+  @media(max-width:768px){ .free-grid { grid-template-columns:1fr; } }
+  .free-box { background:var(--gl); border:1px solid var(--gb); border-radius:20px; padding:32px 28px; }
+  .free-box h3 { font-size:1rem; font-weight:900; color:var(--gd); margin-bottom:20px; }
+  .free-item { display:flex; align-items:flex-start; gap:12px; margin-bottom:14px; }
+  .free-ico { width:36px; height:36px; border-radius:8px; background:#fff; border:1px solid var(--gb); display:flex; align-items:center; justify-content:center; font-size:1.1rem; flex-shrink:0; }
+  .free-item p { font-size:0.9rem; color:#374151; line-height:1.6; font-weight:600; }
+  .free-note { font-size:0.78rem; color:#6b7280; margin-top:16px; padding-top:14px; border-top:1px solid var(--gb); line-height:1.7; }
+  .why-box { background:#fff; border:1px solid #e5e7eb; border-radius:20px; padding:32px 28px; }
+  .why-box h3 { font-size:1rem; font-weight:900; color:#1a1a2e; margin-bottom:16px; }
+  .why-box p { font-size:0.9rem; color:#374151; line-height:1.85; }
+  .why-box .highlight { color:var(--g); font-weight:700; }
 
-  /* FLOW */
-  .flow { background:#fff; }
-  .flow-steps { display:grid; grid-template-columns:repeat(5,1fr); gap:0; margin-top:60px; }
-  @media(max-width:900px){.flow-steps{grid-template-columns:1fr 1fr;gap:24px;}}
-  .flow-step { text-align:center; padding:0 12px; position:relative; }
-  .flow-step:not(:last-child)::after { content:'→'; position:absolute; right:-8px; top:28px; font-size:1.2rem; color:#d1d5db; }
-  @media(max-width:900px){.flow-step:not(:last-child)::after{display:none;}}
-  .step-circle { width:60px; height:60px; border-radius:50%; background:linear-gradient(135deg,#0f3460,#16534a); display:flex; flex-direction:column; align-items:center; justify-content:center; margin:0 auto 16px; box-shadow:0 6px 18px rgba(15,52,96,0.28); }
-  .step-circle .sn { font-size:0.55rem; color:#93c5fd; font-weight:700; }
-  .step-circle .sv { font-size:1.05rem; font-weight:900; color:#fff; }
-  .flow-step h4 { font-size:0.88rem; font-weight:800; color:#0f172a; margin-bottom:8px; line-height:1.3; }
-  .flow-step p { font-size:0.78rem; color:#4b5563; line-height:1.7; }
+  /* TRUST BADGES */
+  .trust-row { display:flex; gap:20px; flex-wrap:wrap; margin-top:32px; }
+  .trust-badge { display:flex; align-items:center; gap:8px; font-size:0.88rem; color:#374151; font-weight:600; }
+  .trust-check { width:22px; height:22px; border-radius:50%; background:var(--g); display:flex; align-items:center; justify-content:center; color:#fff; font-size:0.7rem; font-weight:900; flex-shrink:0; }
 
-  /* PRICE */
-  .price-sec { background:#f7f9fb; }
-  .price-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; margin-top:56px; }
-  @media(max-width:640px){.price-grid{grid-template-columns:1fr;}}
-  .price-card { background:#fff; border-radius:20px; padding:32px; border:2px solid #e5e7eb; transition:border-color 0.3s,box-shadow 0.3s; text-align:center; }
-  .price-card.featured { border-color:#0f3460; box-shadow:0 8px 32px rgba(15,52,96,0.12); }
-  .price-card .badge { font-size:0.7rem; font-weight:800; padding:4px 12px; border-radius:20px; margin-bottom:14px; display:inline-block; }
-  .badge-basic { background:#f3f4f6; color:#4b5563; }
-  .badge-std { background:#e0e7f3; color:#0f3460; }
-  .badge-prem { background:linear-gradient(135deg,#0f3460,#16534a); color:#fff; }
-  .price-card h3 { font-size:1.15rem; font-weight:900; color:#0f172a; margin-bottom:8px; }
-  .price-card .price { font-size:2rem; font-weight:900; color:#0f3460; margin:16px 0 4px; }
-  .price-card .price span { font-size:0.85rem; color:#6b7280; font-weight:500; }
-  .price-card ul { list-style:none; text-align:left; margin:16px 0 24px; }
-  .price-card li { font-size:0.84rem; color:#374151; padding:7px 0; border-bottom:1px solid #f3f4f6; display:flex; align-items:center; gap:8px; }
-  .price-card li::before { content:'✓'; color:#16534a; font-weight:900; }
+  /* BANNER CTA */
+  .banner-sec { background:var(--navy); padding:40px 24px; }
+  .banner-inner { max-width:960px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; gap:24px; flex-wrap:wrap; }
+  .banner-inner p { color:rgba(255,255,255,0.9); font-size:1rem; font-weight:700; }
+  .banner-inner small { display:block; color:rgba(255,255,255,0.55); font-size:0.82rem; font-weight:400; margin-top:4px; }
+  .btn-banner { background:#fff; color:var(--navy); padding:12px 28px; border-radius:8px; font-weight:800; font-size:0.92rem; white-space:nowrap; transition:opacity 0.2s; display:inline-flex; align-items:center; gap:6px; }
+  .btn-banner:hover { opacity:0.88; }
+
+  /* CONTACT ROW */
+  .contact-row-sec { background:#f8faf8; padding:60px 24px; }
+  .contact-row-inner { max-width:900px; margin:0 auto; text-align:center; }
+  .contact-row-inner h2 { font-size:1.3rem; font-weight:900; color:#1a1a2e; margin-bottom:6px; }
+  .contact-row-inner p { font-size:0.9rem; color:#4b5563; margin-bottom:28px; }
+  .contact-methods { display:flex; gap:16px; justify-content:center; flex-wrap:wrap; }
+  .c-method { background:#fff; border:1.5px solid #e5e7eb; border-radius:14px; padding:18px 24px; display:flex; flex-direction:column; align-items:center; gap:6px; min-width:180px; transition:border-color 0.2s,box-shadow 0.2s; }
+  .c-method:hover { border-color:var(--g); box-shadow:0 4px 16px rgba(45,122,62,0.12); }
+  .c-method .c-icon { font-size:1.6rem; }
+  .c-method .c-label { font-size:0.72rem; color:#6b7280; }
+  .c-method .c-val { font-size:0.9rem; font-weight:800; color:#1a1a2e; }
+  .c-method .c-sub { font-size:0.72rem; color:#9ca3af; }
 
   /* FAQ */
-  .faq-sec { background:#fff; }
-  .faq-list { max-width:760px; margin:56px auto 0; }
-  .faq-item { background:#f7f9fb; border-radius:14px; margin-bottom:10px; overflow:hidden; }
-  .faq-q { width:100%; background:none; border:none; color:#0f172a; text-align:left; padding:20px 24px; font-size:0.95rem; font-weight:700; cursor:pointer; display:flex; justify-content:space-between; align-items:center; gap:16px; font-family:inherit; }
-  .faq-icon { width:28px; height:28px; border-radius:50%; background:#e0e7f3; display:flex; align-items:center; justify-content:center; font-size:1.1rem; color:#0f3460; flex-shrink:0; transition:transform 0.3s,background 0.3s; }
-  .faq-item.open .faq-icon { transform:rotate(45deg); background:#0f3460; color:#fff; }
-  .faq-a { display:none; padding:0 24px 20px; font-size:0.9rem; color:#4b5563; line-height:1.85; }
+  .faq-sec { background:#fff; padding:72px 24px; }
+  .faq-list { max-width:720px; margin:40px auto 0; }
+  .faq-item { border-bottom:1px solid #e5e7eb; }
+  .faq-q { width:100%; background:none; border:none; color:#1a1a2e; text-align:left; padding:18px 0; font-size:0.93rem; font-weight:700; cursor:pointer; display:flex; justify-content:space-between; align-items:center; gap:16px; font-family:inherit; }
+  .faq-icon { width:26px; height:26px; border-radius:50%; background:var(--gl); display:flex; align-items:center; justify-content:center; font-size:1rem; color:var(--g); flex-shrink:0; transition:transform 0.3s,background 0.3s; }
+  .faq-item.open .faq-icon { transform:rotate(45deg); background:var(--g); color:#fff; }
+  .faq-a { display:none; padding:0 0 18px; font-size:0.88rem; color:#4b5563; line-height:1.85; }
   .faq-item.open .faq-a { display:block; }
-
-  /* IoT MONITORING */
-  .iot-sec { background:#0a1a14; padding:92px 24px; }
-  .iot-inner { max-width:1120px; margin:0 auto; }
-  .iot-card { display:grid; grid-template-columns:1fr 1fr; gap:56px; align-items:center; }
-  @media(max-width:768px){.iot-card{grid-template-columns:1fr;}}
-  .iot-tag { background:rgba(74,222,128,0.15); color:#4ade80; font-size:0.72rem; font-weight:800; letter-spacing:0.15em; padding:5px 14px; border-radius:20px; display:inline-block; margin-bottom:14px; border:1px solid rgba(74,222,128,0.3); }
-  .iot-card h2 { font-size:clamp(1.6rem,2.8vw,2.2rem); font-weight:900; color:#fff; line-height:1.25; margin-bottom:16px; }
-  .iot-card h2 em { font-style:normal; color:#4ade80; }
-  .iot-card > div > p { font-size:0.93rem; color:rgba(255,255,255,0.68); line-height:1.85; margin-bottom:24px; }
-  .iot-detect { list-style:none; margin-bottom:28px; }
-  .iot-detect li { display:flex; align-items:flex-start; gap:12px; font-size:0.87rem; color:rgba(255,255,255,0.82); padding:9px 0; border-bottom:1px solid rgba(255,255,255,0.07); }
-  .iot-detect li:last-child { border-bottom:none; }
-  .iot-ico { width:32px; height:32px; border-radius:8px; background:rgba(74,222,128,0.15); border:1px solid rgba(74,222,128,0.25); display:flex; align-items:center; justify-content:center; font-size:1rem; flex-shrink:0; }
-  .iot-price-note { background:rgba(74,222,128,0.08); border:1px solid rgba(74,222,128,0.2); border-radius:12px; padding:16px 20px; font-size:0.83rem; color:rgba(255,255,255,0.65); }
-  .iot-price-note strong { color:#4ade80; font-size:1rem; }
-  .iot-monitor { background:#0d2218; border:1px solid rgba(74,222,128,0.2); border-radius:16px; padding:24px; }
-  .iot-monitor-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; }
-  .iot-monitor-title { font-size:0.78rem; font-weight:700; color:#4ade80; letter-spacing:0.1em; }
-  .iot-dot { width:8px; height:8px; border-radius:50%; background:#4ade80; box-shadow:0 0 8px #4ade80; animation:pulse 2s infinite; }
-  @keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}
-  .iot-device { background:rgba(255,255,255,0.04); border-radius:10px; padding:14px 16px; margin-bottom:10px; }
-  .iot-device-name { font-size:0.78rem; color:rgba(255,255,255,0.5); margin-bottom:6px; }
-  .iot-watt { font-size:1.8rem; font-weight:900; color:#fff; line-height:1; }
-  .iot-watt span { font-size:0.82rem; color:rgba(255,255,255,0.4); font-weight:400; }
-  .iot-bar-wrap { background:rgba(255,255,255,0.06); border-radius:4px; height:6px; margin-top:10px; overflow:hidden; }
-  .iot-bar { height:100%; border-radius:4px; background:linear-gradient(90deg,#4ade80,#22c55e); }
-  .iot-status { display:flex; justify-content:space-between; align-items:center; padding:10px 0; border-top:1px solid rgba(255,255,255,0.07); margin-top:12px; font-size:0.78rem; }
-  .iot-ok { color:#4ade80; font-weight:700; }
-  .iot-alert-row { background:rgba(251,191,36,0.08); border:1px solid rgba(251,191,36,0.2); border-radius:8px; padding:10px 14px; font-size:0.78rem; color:#fbbf24; margin-top:10px; }
-  /* CTA */
-  .ak-cta { background:linear-gradient(135deg,#0f3460,#16534a); padding:92px 24px; text-align:center; }
-  .ak-cta h2 { font-size:clamp(1.7rem,3vw,2.4rem); font-weight:900; color:#fff; margin-bottom:14px; }
-  .ak-cta p { font-size:1rem; color:rgba(255,255,255,0.75); margin-bottom:36px; }
-  .ak-cta-btns { display:flex; gap:14px; justify-content:center; flex-wrap:wrap; }
-  .btn-wh { background:#fff; color:#0f3460; padding:14px 32px; border-radius:8px; font-weight:800; transition:opacity 0.2s; }
-  .btn-wh:hover { opacity:0.9; }
 </style>
 </head>
 <body>
 %(NAV)s
 
+<!-- HERO -->
 <section class="ak-hero">
   <div class="ak-hero-bg"></div>
   <div class="ak-hero-inner">
-    <h1>放置された空き家を、<br><em>価値ある資産へ。</em></h1>
-    <p>全国に約900万戸もの空き家が存在し、毎年その数は増え続けています。ギグスはAI技術と不動産専門知識を組み合わせ、空き家オーナーの課題を解決します。</p>
-    <div class="stat-pills">
-      <div class="stat-pill">全国空き家数 <strong>約900万戸</strong></div>
-      <div class="stat-pill">空き家率 <strong>13.8%</strong>（総務省2023年）</div>
-      <div class="stat-pill">AI調査で <strong>迅速・正確</strong></div>
-    </div>
-    <div style="display:flex;gap:14px;flex-wrap:wrap;">
-      <a href="/contact" class="btn-gold">無料相談はこちら →</a>
-      <a href="#flow" style="border:2px solid rgba(255,255,255,0.4);color:#fff;padding:12px 28px;border-radius:8px;font-weight:700;font-size:0.92rem;">ご利用の流れを見る</a>
+    <div class="ak-eyebrow">特にお困りでなくても大丈夫です。</div>
+    <h1>空き家の<em>"今の状態"</em>を<br>無料でお伝えします</h1>
+    <p class="ak-hero-sub">まずは<strong>"今どうなっているか"</strong>だけ<br>確認してみませんか？</p>
+    <div class="ak-hero-btns">
+      <a href="/contact?subject=akiya_free" class="btn-green">
+        <span>✉</span> 無料で状態を確認する <span>›</span>
+      </a>
+      <a href="/akiya/service" class="btn-green-outline">どんな内容か見る ›</a>
     </div>
   </div>
 </section>
 
-<!-- 問題提起 -->
-<section class="problem">
-  <div class="si">
-    <span class="tag tag-gray">PROBLEM</span>
-    <h2 class="h2">空き家問題が深刻化しています</h2>
-    <div class="prob-grid">
-      <div class="prob-content">
-        <p style="font-size:1rem;color:#374151;line-height:1.85;margin-bottom:20px;">
-          少子高齢化と人口減少が加速する日本では、相続や転居で空き家となった物件が増え続けています。放置された空き家は資産価値の低下、建物の劣化、近隣への悪影響など、さまざまな問題を引き起こします。
-        </p>
-        <p style="font-size:0.93rem;color:#4b5563;line-height:1.85;margin-bottom:28px;">
-          一方で、空き家は適切な対処を行うことで<strong>有効な資産</strong>になりえます。ギグスはお客様の大切な空き家を、負債から資産へ転換するお手伝いをします。
-        </p>
-        <div class="prob-stats">
-          <div class="ps-item"><div class="ps-num">900<span style="font-size:1rem;">万戸</span></div><div class="ps-label">全国の空き家数（2023年）</div></div>
-          <div class="ps-item"><div class="ps-num">13.8<span style="font-size:1rem;">%</span></div><div class="ps-label">過去最高の空き家率</div></div>
-          <div class="ps-item"><div class="ps-num">50<span style="font-size:1rem;">%↓</span></div><div class="ps-label">放置による資産価値低下</div></div>
-          <div class="ps-item"><div class="ps-num">1/3<span style="font-size:1rem;"></span></div><div class="ps-label">相続空き家の割合</div></div>
-        </div>
-      </div>
-      <div class="prob-img">
-        <img src="/static/images/akiya_problem.png" onerror="this.parentElement.style.background='#e5e7eb';this.remove()" alt="空き家問題">
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ソリューション -->
-<section class="solution">
-  <div class="si">
-    <span class="tag tag-green">SOLUTION</span>
-    <h2 class="h2">ギグスの空き家ソリューション</h2>
-    <p class="lead">調査から活用・売却まで、ワンストップでサポートします。</p>
-    <div class="sol-grid">
-      <div class="sol-img">
-        <img src="/static/images/akiya_solution.png" onerror="this.parentElement.style.background='#d1ede5';this.remove()" alt="空き家ソリューション">
-      </div>
-      <div>
-        <ul class="sol-points">
-          <li>
-            <div class="sol-ico">🔍</div>
-            <div class="sol-text">
-              <h4>AI活用・現地調査報告書</h4>
-              <p>Claude Vision APIを搭載したAIシステムで現地写真を自動分析。正確で詳細な調査報告書を迅速に作成します。</p>
-            </div>
-          </li>
-          <li>
-            <div class="sol-ico">🏠</div>
-            <div class="sol-text">
-              <h4>空き家管理代行</h4>
-              <p>定期的な見回り・清掃・建物点検などの管理業務を代行。遠方オーナー様も安心してお任せいただけます。</p>
-            </div>
-          </li>
-          <li>
-            <div class="sol-ico">💰</div>
-            <div class="sol-text">
-              <h4>売却・賃貸仲介</h4>
-              <p>市場分析に基づく適正価格での売却・賃貸仲介。豊富な買い手・借り手ネットワークで早期成約を目指します。</p>
-            </div>
-          </li>
-          <li>
-            <div class="sol-ico">🔨</div>
-            <div class="sol-text">
-              <h4>リノベーション提案</h4>
-              <p>費用対効果の高いリノベーションを提案。資産価値を高め、賃貸収入の最大化をサポートします。</p>
-            </div>
-          </li>
-          <li>
-            <div class="sol-ico">⚡</div>
-            <div class="sol-text">
-              <h4>IoTリアルタイム監視 <span style="font-size:0.7rem;background:linear-gradient(135deg,#0f3460,#16534a);color:#fff;padding:2px 8px;border-radius:10px;margin-left:4px;vertical-align:middle;">NEW</span></h4>
-              <p>SwitchBotスマートプラグで電力を24時間監視。不法侵入・漏電・設備異常をリアルタイムで検知し、即座にご連絡します。</p>
-            </div>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- IoTリアルタイム監視 -->
-<section class="iot-sec" id="iot">
-  <div class="iot-inner">
-    <div class="iot-card">
-      <div>
-        <span class="iot-tag">⚡ IoT REALTIME MONITORING</span>
-        <h2>月1回の訪問では<br>気づけない異常を、<br><em>数分以内に検知。</em></h2>
-        <p>SwitchBotスマートプラグを空き家に設置するだけで、電力消費をリアルタイムで把握。不法侵入・漏電・設備故障などの異常を自動検知し、高田代表のスマートフォンに即座に通知します。管理代行プランへのオプション追加で、24時間365日の遠隔監視体制が整います。</p>
-        <ul class="iot-detect">
-          <li>
-            <div class="iot-ico">👤</div>
-            <div>
-              <strong style="color:#fff">深夜の電力スパイク検知</strong><br>
-              就寝時間帯の突発的な消費増加を検知。不法侵入者が電気を使用しているサインを見逃しません。
-            </div>
-          </li>
-          <li>
-            <div class="iot-ico">🔌</div>
-            <div>
-              <strong style="color:#fff">電力ゼロ・停電アラート</strong><br>
-              長時間の電力ゼロを検知。ブレーカー落ち・設備故障を早期発見し、建物劣化を防ぎます。
-            </div>
-          </li>
-          <li>
-            <div class="iot-ico">🔥</div>
-            <div>
-              <strong style="color:#fff">連続高消費・漏電の兆候</strong><br>
-              24時間以上の異常な高消費を検知。電気機器の付けっぱなし・漏電の早期発見に対応します。
-            </div>
-          </li>
-          <li>
-            <div class="iot-ico">📊</div>
-            <div>
-              <strong style="color:#fff">AIによる異常パターン分析</strong><br>
-              蓄積された電力データをAIが分析。「この物件らしくない消費」を自動で判定します。
-            </div>
-          </li>
-        </ul>
-        <div class="iot-price-note">
-          初期費用: SwitchBot本体 <strong>¥3,000〜5,000</strong>（買い切り）<br>
-          月額オプション: <strong>+¥2,000〜3,000</strong> / 管理代行プランに追加
-        </div>
-      </div>
-      <div class="iot-monitor">
-        <div class="iot-monitor-header">
-          <span class="iot-monitor-title">📡 LIVE MONITOR</span>
-          <div class="iot-dot"></div>
-        </div>
-        <div class="iot-device">
-          <div class="iot-device-name">リビング — SwitchBot Plug Mini</div>
-          <div class="iot-watt">142<span> W</span></div>
-          <div class="iot-bar-wrap"><div class="iot-bar" style="width:28%"></div></div>
-          <div class="iot-status">
-            <span style="color:rgba(255,255,255,0.45);font-size:0.73rem">24h平均: 89W</span>
-            <span class="iot-ok">● 正常</span>
-          </div>
-        </div>
-        <div class="iot-device">
-          <div class="iot-device-name">玄関 — SwitchBot Plug Mini</div>
-          <div class="iot-watt">0<span> W</span></div>
-          <div class="iot-bar-wrap"><div class="iot-bar" style="width:0%"></div></div>
-          <div class="iot-status">
-            <span style="color:rgba(255,255,255,0.45);font-size:0.73rem">24h平均: 0W</span>
-            <span class="iot-ok">● 正常</span>
-          </div>
-        </div>
-        <div class="iot-alert-row">
-          ⚠ 2日前 02:14 — 深夜帯に電力スパイク検知（+380W）<br>
-          <span style="opacity:0.7">→ 高田代表に即時通知・翌朝現地確認済み</span>
-        </div>
-        <div style="margin-top:16px;text-align:center">
-          <a href="/contact" style="display:inline-block;background:linear-gradient(135deg,#16a34a,#0f3460);color:#fff;padding:11px 28px;border-radius:8px;font-size:0.85rem;font-weight:700;">IoT監視オプションを相談する →</a>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- AI技術 -->
-<section class="ai-feature">
-  <div class="ai-inner">
-    <div class="ai-card">
-      <div>
-        <span class="ai-tag">AI TECHNOLOGY</span>
-        <h2>最先端AIで、<br>空き家調査を革新する</h2>
-        <p>ギグスは株式会社ZebraQuantumと提携し、Claude Vision AIを活用した現地調査報告書の自動生成システムを導入。従来の人力調査と比べ、スピード・精度・コストのすべてを改善します。</p>
-        <ul class="ai-features">
-          <li>現地写真をアップロードするだけで詳細な報告書を自動生成</li>
-          <li>劣化状況・修繕必要箇所を画像AIが自動判定</li>
-          <li>報告書作成時間を従来比80%以上短縮</li>
-          <li>全国どこでもオンラインで対応可能</li>
-        </ul>
-      </div>
-      <div class="ai-visual">
-        <div class="ai-report-mock">
-          <h4>🤖 AI調査報告書 — サンプル</h4>
-          <div class="ai-field"><span class="k">物件種別</span><span class="v">木造2階建（築38年）</span></div>
-          <div class="ai-field"><span class="k">外壁状態</span><span class="v">軽微な劣化あり</span></div>
-          <div class="ai-field"><span class="k">屋根状態</span><span class="v">要点検（経年劣化）</span></div>
-          <div class="ai-field"><span class="k">修繕推定費用</span><span class="v">80〜120万円</span></div>
-          <div class="ai-field"><span class="k">活用推奨</span><span class="v">賃貸リノベーション</span></div>
-          <div class="ai-score">
-            <div class="ai-score-num">B+</div>
-            <div class="ai-score-label">総合評価スコア</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ご利用の流れ -->
-<section class="flow" id="flow">
+<!-- こんな方が増えています -->
+<section class="who-sec">
   <div class="si">
     <div class="tc">
-      <span class="tag tag-navy">FLOW</span>
-      <h2 class="h2">ご利用の流れ</h2>
-      <p class="lead">お問い合わせから空き家活用まで、ギグスが一貫してサポートします。</p>
+      <h2 class="h2" style="font-size:clamp(1.3rem,2.5vw,1.8rem);color:#1a1a2e;">こんな方が増えています</h2>
     </div>
-    <div class="flow-steps">
-      <div class="flow-step">
-        <div class="step-circle"><span class="sn">STEP</span><span class="sv">1</span></div>
-        <h4>無料相談</h4>
-        <p>フォームまたはお電話でお気軽にご連絡ください。2営業日以内にご連絡します。</p>
+    <div class="who-grid">
+      <div class="who-card">
+        <div class="who-ico">📍</div>
+        <p>使っていないが、<br>特に困っていない</p>
       </div>
-      <div class="flow-step">
-        <div class="step-circle"><span class="sn">STEP</span><span class="sv">2</span></div>
-        <h4>現地調査</h4>
-        <p>AIシステムで現地写真を分析し、詳細な調査報告書を作成します。</p>
+      <div class="who-card">
+        <div class="who-ico">🚗</div>
+        <p>遠方で様子が<br>分からない</p>
       </div>
-      <div class="flow-step">
-        <div class="step-circle"><span class="sn">STEP</span><span class="sv">3</span></div>
-        <h4>ご提案</h4>
-        <p>調査結果をもとに最適な活用方法（管理・売却・賃貸・リノベ）をご提案します。</p>
-      </div>
-      <div class="flow-step">
-        <div class="step-circle"><span class="sn">STEP</span><span class="sv">4</span></div>
-        <h4>ご契約</h4>
-        <p>ご納得いただけましたら、ご希望のサービスについてご契約を締結します。</p>
-      </div>
-      <div class="flow-step">
-        <div class="step-circle"><span class="sn">STEP</span><span class="sv">5</span></div>
-        <h4>サービス開始</h4>
-        <p>管理開始・売却活動・リノベーション工事などをギグスが責任をもって進めます。</p>
+      <div class="who-card">
+        <div class="who-ico">🏠</div>
+        <p>管理まではまだ<br>考えていない</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- 料金 -->
-<section class="price-sec" id="price">
+<!-- 無料で行うこと + なぜ無料か -->
+<section class="free-sec">
   <div class="si">
-    <div class="tc">
-      <span class="tag tag-gold">PRICE</span>
-      <h2 class="h2">サービス料金のご案内</h2>
-      <p class="lead">まずは無料相談からお気軽にどうぞ。</p>
-    </div>
-    <div class="price-grid">
-      <div class="price-card">
-        <span class="badge badge-basic">ライトプラン</span>
-        <h3>現地調査のみ</h3>
-        <p style="font-size:0.84rem;color:#4b5563;margin-top:8px;">AI調査報告書の作成</p>
-        <div class="price">要相談<span> 円〜</span></div>
-        <ul>
-          <li>AI現地調査報告書</li>
-          <li>劣化状況の分析</li>
-          <li>修繕費用の概算</li>
-          <li>活用方針のアドバイス</li>
-        </ul>
-        <a href="/contact" class="btn-outline" style="width:100%;justify-content:center;">相談する</a>
-      </div>
-      <div class="price-card featured">
-        <span class="badge badge-std">スタンダード</span>
-        <h3>管理代行プラン</h3>
-        <p style="font-size:0.84rem;color:#4b5563;margin-top:8px;">空き家の維持管理</p>
-        <div class="price">要相談<span> 円/月〜</span></div>
-        <ul>
-          <li>定期巡回・点検</li>
-          <li>清掃・除草対応</li>
-          <li>異常時の緊急対応</li>
-          <li>月次レポート提供</li>
-        </ul>
-        <div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:10px;padding:12px 14px;margin-bottom:16px;text-align:left;">
-          <div style="font-size:0.72rem;font-weight:800;color:#16a34a;margin-bottom:6px;">⚡ オプション追加可能</div>
-          <div style="font-size:0.8rem;color:#374151;line-height:1.6">IoTリアルタイム監視<br><span style="color:#6b7280">+¥2,000〜3,000/月・機器費別</span></div>
+    <div class="free-grid">
+      <div class="free-box">
+        <h3>🏠 無料で行うこと</h3>
+        <div class="free-item">
+          <div class="free-ico">🏠</div>
+          <p>外観の確認<br><span style="font-weight:400;font-size:0.83rem;color:#6b7280;">（建物・敷地まわり）</span></p>
         </div>
-        <a href="/contact" class="btn-primary" style="width:100%;justify-content:center;">相談する</a>
+        <div class="free-item">
+          <div class="free-ico">📷</div>
+          <p>写真1〜2枚の共有</p>
+        </div>
+        <div class="free-item">
+          <div class="free-ico">💬</div>
+          <p>簡単なコメント</p>
+        </div>
+        <div class="free-note">
+          ※ 敷地内には立ち入りません<br>
+          ※ 作業は行いません
+        </div>
+        <div class="trust-row" style="margin-top:24px;padding-top:20px;border-top:1px solid var(--gb);">
+          <div class="trust-badge"><div class="trust-check">✓</div> 1回だけでもOK</div>
+          <div class="trust-badge"><div class="trust-check">✓</div> 継続の必要はありません</div>
+          <div class="trust-badge"><div class="trust-check">✓</div> 営業はいたしません</div>
+        </div>
       </div>
-      <div class="price-card">
-        <span class="badge badge-prem">フルサポート</span>
-        <h3>売却・活用プラン</h3>
-        <p style="font-size:0.84rem;color:#4b5563;margin-top:8px;">売却〜賃貸まで一貫対応</p>
-        <div class="price">成功報酬<span> 型</span></div>
-        <ul>
-          <li>現地調査・報告書作成</li>
-          <li>売却・賃貸仲介</li>
-          <li>リノベーション提案</li>
-          <li>契約〜引渡しサポート</li>
-        </ul>
-        <a href="/contact" class="btn-outline" style="width:100%;justify-content:center;">相談する</a>
+      <div class="why-box">
+        <h3>なぜ無料で確認しているのか</h3>
+        <p>
+          空き家については、「特に困ってはいないが、少し気になる」という方がたくさんいらっしゃいます。<br><br>
+          この段階で、いきなり管理や費用のご提案をすることは、かえってご負担になると考えています。<br><br>
+          そのため当社では、まず<strong class="highlight">現在の状態を知っていただくこと</strong>を目的に、外観の確認と簡単なレポートを無料で行っています。<br><br>
+          <strong class="highlight">判断は、そのあとで大丈夫です。</strong>
+        </p>
+        <div style="margin-top:24px;padding:16px 18px;background:#f8faf8;border-radius:10px;border-left:3px solid var(--g);">
+          <p style="font-size:0.83rem;color:#4b5563;line-height:1.8;">
+            ちなみに、文京区でも空き家は年々増えています。全国的な課題ですが、地域での小さなサポートが積み重なることで、街の安心につながると考え、この取り組みをはじめました。
+          </p>
+        </div>
       </div>
     </div>
-    <p style="text-align:center;margin-top:20px;font-size:0.82rem;color:#6b7280;">※料金は物件の状況・エリア・内容によって異なります。まずはお気軽にご相談ください。</p>
   </div>
 </section>
+
+<!-- 管理・お手入れバナー -->
+<div class="banner-sec">
+  <div class="banner-inner">
+    <div>
+      <p>👤 必要に応じて、管理やお手入れも対応可能です。
+        <small>状況を確認した上で、ご希望の場合のみご提案します。</small>
+      </p>
+    </div>
+    <a href="/akiya/service" class="btn-banner">空き家サービスの詳細を見る ›</a>
+  </div>
+</div>
 
 <!-- FAQ -->
 <section class="faq-sec" id="faq">
   <div class="si">
     <div class="tc">
-      <span class="tag tag-navy">FAQ</span>
-      <h2 class="h2">よくあるご質問</h2>
+      <h2 class="h2" style="font-size:clamp(1.3rem,2.5vw,1.8rem);">よくある質問</h2>
     </div>
     <div class="faq-list">
-      <div class="faq-item"><button class="faq-q">遠方に空き家があるのですが、対応してもらえますか？<div class="faq-icon">+</div></button><div class="faq-a">はい、全国対応しております。写真・書類のご提供はオンラインで完結できますので、遠方にお住まいのオーナー様でも安心してご依頼いただけます。まずはお問い合わせフォームよりご連絡ください。</div></div>
-      <div class="faq-item"><button class="faq-q">相続した空き家なのですが、相談できますか？<div class="faq-icon">+</div></button><div class="faq-a">もちろんです。相続空き家はギグスが最も多くご相談を承っているケースのひとつです。相続登記のご案内・税務専門家のご紹介も含め、ワンストップでサポートいたします。</div></div>
-      <div class="faq-item"><button class="faq-q">AI調査報告書の精度はどれくらいですか？<div class="faq-icon">+</div></button><div class="faq-a">世界最高水準のClaude Vision AIを活用した画像分析を行います。劣化状況・修繕箇所の特定精度は従来の目視調査と同等以上を実現。報告書完成まで最短1営業日で対応できます。</div></div>
-      <div class="faq-item"><button class="faq-q">売却するか管理するか迷っています。どちらがよいですか？<div class="faq-icon">+</div></button><div class="faq-a">物件の状態・立地・オーナー様のご希望によって最適解は異なります。ギグスでは現地調査の結果をもとに、売却・管理・賃貸・リノベーションのすべての選択肢をシミュレーションしてご提案します。</div></div>
-      <div class="faq-item"><button class="faq-q">費用はいつ発生しますか？<div class="faq-icon">+</div></button><div class="faq-a">初回相談・見積もりは無料です。サービスの種類によって、着手金型・成功報酬型・月額型があります。費用の発生タイミングは契約前に明確にお伝えしますのでご安心ください。</div></div>
+      <div class="faq-item">
+        <button class="faq-q">無料確認は、1回だけでも依頼できますか？<div class="faq-icon">+</div></button>
+        <div class="faq-a">はい、もちろんです。「まず1回だけ様子を見てほしい」というご依頼も歓迎しています。継続のご契約は一切必要ありません。</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">遠方に住んでいて、物件に行けないのですが大丈夫ですか？<div class="faq-icon">+</div></button>
+        <div class="faq-a">大丈夫です。当社が現地に伺い、外観の写真とコメントをメール等でお送りします。お客様にお越しいただく必要はありません。</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">空き家が文京区以外にあります。対応してもらえますか？<div class="faq-icon">+</div></button>
+        <div class="faq-a">物件の場所によりご相談ください。文京区およびその近隣エリアを中心に対応しております。まずはお気軽にお問い合わせください。</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">無料確認の後、しつこく営業されませんか？<div class="faq-icon">+</div></button>
+        <div class="faq-a">いたしません。ご報告をお送りした後は、お客様のご判断をお待ちします。「このままで大丈夫だった」というケースも多くあります。追いかけてご連絡することはありません。</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">管理サービスを頼もうか迷っています。まず相談だけできますか？<div class="faq-icon">+</div></button>
+        <div class="faq-a">もちろんです。まずは無料確認で状態を把握した上で、管理が必要かどうか一緒に考えましょう。必要なければ「そのままで大丈夫です」とお伝えすることもあります。</div>
+      </div>
     </div>
   </div>
 </section>
 
-<section class="ak-cta">
-  <h2>空き家でお困りでしたら、<br>まずはご相談ください。</h2>
-  <p>初回相談は無料です。オンライン・電話でもお気軽にどうぞ。</p>
-  <div class="ak-cta-btns">
-    <a href="/contact" class="btn-wh">無料相談フォームへ</a>
-    <a href="tel:07083943791" style="border:2px solid rgba(255,255,255,0.4);color:#fff;padding:14px 28px;border-radius:8px;font-weight:700;">📞 お電話で相談</a>
+<!-- お問い合わせ -->
+<section class="contact-row-sec">
+  <div class="contact-row-inner">
+    <h2>「まずは状態だけ知りたい」でも構いません<br>お気軽にご連絡ください。</h2>
+    <p style="color:#6b7280;margin-bottom:28px;">受付時間 9:00〜18:00（土日祝も対応）</p>
+    <div class="contact-methods">
+      <a href="tel:07083943791" class="c-method" style="text-decoration:none;">
+        <span class="c-icon">📞</span>
+        <span class="c-label">お電話で相談する</span>
+        <span class="c-val">070-8394-3791</span>
+        <span class="c-sub">受付時間 9:00〜18:00</span>
+      </a>
+      <a href="https://lin.ee/gigscorp" class="c-method" style="text-decoration:none;background:#f0fdf4;border-color:var(--gb);">
+        <span class="c-icon">💬</span>
+        <span class="c-label">LINEで相談する</span>
+        <span class="c-val" style="color:var(--g);">LINE で相談</span>
+        <span class="c-sub">気軽にご相談いただけます</span>
+      </a>
+      <a href="/contact?subject=akiya_free" class="c-method" style="text-decoration:none;background:var(--gl);border-color:var(--gb);">
+        <span class="c-icon">✉️</span>
+        <span class="c-label">フォームで依頼する</span>
+        <span class="c-val" style="color:var(--g);">無料で状態を確認する</span>
+        <span class="c-sub">2営業日以内にご連絡</span>
+      </a>
+    </div>
   </div>
 </section>
 
@@ -899,6 +690,332 @@ document.querySelectorAll('.faq-q').forEach(btn=>{
   });
 });
 </script>
+</body></html>"""
+
+# ─────────────────────────────────────────────────────────────
+#  空き家サービス 詳細ページ
+# ─────────────────────────────────────────────────────────────
+AKIYA_SERVICE_HTML = """<!DOCTYPE html>
+<html lang="ja"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>空き家の管理・サポートサービス | 有限会社ギグス</title>
+<meta name="description" content="空き家の状態やご事情により、必要な対応はそれぞれ異なります。無料確認から月3,000円のAIライトプラン、月10,000円のスタンダードプランまで。文京区の空き家管理なら有限会社ギグス。">
+%(CSS)s
+<style>
+  :root { --g: #2d7a3e; --gl: #e8f5ed; --gb: #a7d4b3; --gd: #1e5c2d; --navy: #1d3461; }
+
+  /* PAGE HEADER */
+  .sv-header { background:#fff; padding:80px 0 0; border-bottom:1px solid #e5e7eb; }
+  .sv-breadcrumb { font-size:0.76rem; color:#9ca3af; max-width:1100px; margin:0 auto; padding:0 24px 10px; }
+  .sv-breadcrumb a { color:#9ca3af; text-decoration:none; }
+  .sv-breadcrumb a:hover { color:var(--g); }
+  .sv-page-ttl { max-width:1100px; margin:0 auto; padding:16px 24px 28px; }
+  .sv-page-ttl h1 { font-size:clamp(1.5rem,3vw,2.2rem); font-weight:900; color:#1a1a2e; margin-bottom:8px; }
+  .sv-page-ttl p { font-size:0.9rem; color:#4b5563; line-height:1.8; }
+
+  /* HERO IMAGE */
+  .sv-hero-img { width:100%; height:280px; object-fit:cover; display:block; }
+
+  /* PHILOSOPHY */
+  .phil-sec { background:#fff; padding:64px 24px; }
+  .phil-grid { display:grid; grid-template-columns:1.2fr 1fr; gap:36px; margin-top:40px; align-items:start; }
+  @media(max-width:768px){ .phil-grid { grid-template-columns:1fr; } }
+  .phil-left h3 { font-size:1rem; font-weight:800; color:#1a1a2e; margin-bottom:20px; }
+  .phil-steps { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; }
+  @media(max-width:560px){ .phil-steps { grid-template-columns:1fr; } }
+  .phil-step { background:#f8faf8; border-radius:12px; padding:20px 16px; text-align:center; border:1px solid #e5e7eb; }
+  .phil-step-ico { font-size:1.8rem; margin-bottom:8px; }
+  .phil-step p { font-size:0.82rem; color:#374151; font-weight:700; line-height:1.5; }
+  .phil-step small { font-size:0.75rem; color:#9ca3af; font-weight:400; }
+  .phil-right { background:var(--gl); border:1px solid var(--gb); border-radius:16px; padding:24px; }
+  .phil-right h3 { font-size:0.85rem; font-weight:800; color:var(--gd); margin-bottom:14px; display:flex; align-items:center; gap:6px; }
+  .free-item2 { display:flex; align-items:center; gap:12px; padding:10px 0; border-bottom:1px solid var(--gb); }
+  .free-item2:last-of-type { border-bottom:none; }
+  .free-item2 .fi-ico { width:32px; height:32px; background:#fff; border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:1rem; flex-shrink:0; border:1px solid var(--gb); }
+  .free-item2 span { font-size:0.87rem; font-weight:600; color:#374151; }
+  .phil-note { font-size:0.75rem; color:#6b7280; margin-top:10px; }
+
+  /* PRICE */
+  .price-sec { background:#f8faf8; padding:72px 24px; }
+  .price-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; margin-top:40px; }
+  @media(max-width:640px){ .price-grid { grid-template-columns:1fr; } }
+  .pc { background:#fff; border-radius:18px; border:1.5px solid #e5e7eb; overflow:hidden; }
+  .pc-head { padding:24px 22px; border-bottom:1px solid #f3f4f6; }
+  .pc-label { font-size:0.7rem; font-weight:800; letter-spacing:0.08em; margin-bottom:8px; }
+  .pc-name { font-size:1.1rem; font-weight:900; color:#1a1a2e; }
+  .pc-price-note { font-size:0.75rem; color:#6b7280; margin-top:4px; }
+  .pc-price { font-size:1.8rem; font-weight:900; color:var(--g); margin-top:8px; line-height:1.1; }
+  .pc-price span { font-size:0.78rem; color:#6b7280; font-weight:400; }
+  .pc-img { width:100%; height:140px; object-fit:cover; display:block; }
+  .pc-body { padding:22px; }
+  .pc-ul { list-style:none; }
+  .pc-ul li { display:flex; gap:8px; align-items:flex-start; font-size:0.86rem; color:#374151; padding:7px 0; border-bottom:1px solid #f3f4f6; }
+  .pc-ul li:last-child { border-bottom:none; }
+  .pc-ul li::before { content:'✓'; color:var(--g); font-weight:900; flex-shrink:0; margin-top:1px; }
+  .pc-featured { border-color:var(--g); }
+  .pc-featured .pc-head { background:var(--gl); }
+
+  /* FLOW */
+  .flow-sec { background:#fff; padding:72px 24px; }
+  .flow-steps { display:grid; grid-template-columns:repeat(4,1fr); gap:0; margin-top:48px; }
+  @media(max-width:640px){ .flow-steps { grid-template-columns:repeat(2,1fr); gap:20px; } }
+  .flow-step { text-align:center; padding:0 8px; position:relative; }
+  .flow-step:not(:last-child)::after { content:'›'; position:absolute; right:-6px; top:22px; font-size:1.4rem; color:#d1d5db; }
+  @media(max-width:640px){ .flow-step:not(:last-child)::after { display:none; } }
+  .flow-circle { width:52px; height:52px; border-radius:50%; background:linear-gradient(135deg,var(--g),var(--gd)); display:flex; flex-direction:column; align-items:center; justify-content:center; margin:0 auto 14px; box-shadow:0 4px 14px rgba(45,122,62,0.25); }
+  .flow-circle .fn { font-size:0.5rem; color:#b2f0c4; font-weight:700; }
+  .flow-circle .fv { font-size:1rem; font-weight:900; color:#fff; }
+  .flow-step h4 { font-size:0.88rem; font-weight:800; color:#1a1a2e; margin-bottom:6px; line-height:1.35; }
+  .flow-step p { font-size:0.78rem; color:#4b5563; line-height:1.65; }
+  .flow-note { text-align:center; margin-top:28px; font-size:0.82rem; color:#9ca3af; }
+
+  /* CASES */
+  .cases-sec { background:#f8faf8; padding:72px 24px; }
+  .cases-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; margin-top:40px; }
+  @media(max-width:640px){ .cases-grid { grid-template-columns:1fr; } }
+  .case-card { background:#fff; border-radius:16px; border:1px solid #e5e7eb; overflow:hidden; }
+  .case-img { width:100%; height:140px; object-fit:cover; display:block; background:linear-gradient(135deg,#e8f5ed,#c5e8d0); }
+  .case-body { padding:20px; }
+  .case-num { font-size:0.68rem; font-weight:800; color:var(--g); letter-spacing:0.1em; margin-bottom:6px; }
+  .case-body p { font-size:0.88rem; color:#374151; font-weight:600; line-height:1.6; }
+
+  /* FUTURE HINT */
+  .future-hint { background:var(--navy); padding:20px 24px; text-align:center; }
+  .future-hint p { font-size:0.88rem; color:rgba(255,255,255,0.8); }
+  .future-hint strong { color:#fff; }
+
+  /* BOTTOM CTA */
+  .bottom-cta { background:#fff; padding:64px 24px; }
+  .bottom-cta-inner { max-width:760px; margin:0 auto; text-align:center; }
+  .bottom-cta h2 { font-size:clamp(1.3rem,2.5vw,1.8rem); font-weight:900; color:#1a1a2e; margin-bottom:16px; }
+  .bottom-cta p { font-size:0.9rem; color:#4b5563; margin-bottom:28px; }
+  .cta-btns3 { display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
+  .btn-green { display:inline-flex; align-items:center; gap:6px; background:linear-gradient(135deg,var(--g),var(--gd)); color:#fff; padding:13px 26px; border-radius:8px; font-weight:800; font-size:0.92rem; box-shadow:0 5px 18px rgba(45,122,62,0.28); transition:transform 0.2s; }
+  .btn-green:hover { transform:translateY(-2px); }
+  .btn-nav { display:inline-flex; align-items:center; gap:6px; border:2px solid #e5e7eb; color:#374151; padding:11px 22px; border-radius:8px; font-weight:700; font-size:0.88rem; transition:border-color 0.2s; }
+  .btn-nav:hover { border-color:var(--g); color:var(--g); }
+  .phone-row { margin-top:20px; font-size:0.85rem; color:#6b7280; }
+  .phone-row a { color:var(--navy); font-weight:800; font-size:1rem; }
+</style>
+</head>
+<body>
+%(AKIYA_NAV)s
+
+<!-- PAGE HEADER -->
+<div class="sv-header">
+  <p class="sv-breadcrumb"><a href="/">TOP</a> &rsaquo; <a href="/akiya">空き家サービス</a> &rsaquo; サービスについて</p>
+  <div class="sv-page-ttl">
+    <h1>空き家の管理・サポートサービス</h1>
+    <p>空き家の状態やご事情により、必要な対応はそれぞれ異なります。<br>まずは無料確認の上、必要な場合のみご提案いたします。</p>
+  </div>
+</div>
+<img src="/static/images/akiya_hero.png" class="sv-hero-img" alt="空き家管理サービス" onerror="this.style.display='none'">
+
+<!-- 当サービスの考え方 -->
+<section class="phil-sec">
+  <div class="si">
+    <div class="phil-grid">
+      <div class="phil-left">
+        <span class="tag tag-green" style="background:var(--gl);color:var(--gd);">当サービスの考え方</span>
+        <h3 class="h2" style="font-size:1.5rem;margin-top:10px;">無理に管理をおすすめするものではありません</h3>
+        <div class="phil-steps">
+          <div class="phil-step">
+            <div class="phil-step-ico">✅</div>
+            <p>そのままで<br>問題ない</p>
+            <small>何もしない</small>
+          </div>
+          <div class="phil-step">
+            <div class="phil-step-ico">🌱</div>
+            <p>少し気になる</p>
+            <small>軽い確認</small>
+          </div>
+          <div class="phil-step">
+            <div class="phil-step-ico">🏠</div>
+            <p>必要な場合<br>のみ対応</p>
+            <small>ご提案します</small>
+          </div>
+        </div>
+        <p style="font-size:0.83rem;color:#4b5563;margin-top:16px;line-height:1.8;">状況に応じてご判断いただきます。</p>
+      </div>
+      <div class="phil-right">
+        <h3>🏠 無料でできること <small style="font-size:0.7rem;font-weight:400;color:var(--gd);">（ここまでは完全無料です）</small></h3>
+        <div class="free-item2">
+          <div class="fi-ico">🏠</div>
+          <span>外観チェック（建物・敷地まわり）</span>
+        </div>
+        <div class="free-item2">
+          <div class="fi-ico">📷</div>
+          <span>写真の共有（1〜2枚）</span>
+        </div>
+        <div class="free-item2">
+          <div class="fi-ico">💬</div>
+          <span>状況コメントのご報告</span>
+        </div>
+        <p class="phil-note">※ 敷地内には立ち入りません　※ 作業は行いません</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 有料サービス -->
+<section class="price-sec" id="price">
+  <div class="si">
+    <div class="tc">
+      <span class="tag tag-gray">有料でご提供するサービス</span>
+      <h2 class="h2" style="font-size:clamp(1.3rem,2.5vw,1.8rem);margin-top:8px;">（必要な場合のみご利用いただけます）</h2>
+    </div>
+    <div class="price-grid">
+
+      <!-- ライトプラン -->
+      <div class="pc pc-featured">
+        <div class="pc-head">
+          <div class="pc-label" style="color:var(--g);">ライトプラン</div>
+          <div class="pc-name">AI外観チェック＋定期レポート</div>
+          <div class="pc-price-note">固定</div>
+          <div class="pc-price">¥3,000<span> / 月</span></div>
+        </div>
+        <img src="/static/images/service_akiya.png" class="pc-img" onerror="this.style.display='none'" alt="ライトプラン">
+        <div class="pc-body">
+          <ul class="pc-ul">
+            <li>AI外観チェック</li>
+            <li>郵便確認</li>
+            <li>定期レポート</li>
+          </ul>
+          <p style="font-size:0.78rem;color:#6b7280;margin-top:10px;">定期的に状況を把握したい方向けのプランです。</p>
+        </div>
+      </div>
+
+      <!-- スタンダードプラン -->
+      <div class="pc">
+        <div class="pc-head">
+          <div class="pc-label" style="color:var(--navy);">スタンダードプラン</div>
+          <div class="pc-name">室内確認＋管理対応</div>
+          <div class="pc-price-note">目安</div>
+          <div class="pc-price" style="color:var(--navy);">¥10,000<span> / 月〜</span></div>
+        </div>
+        <img src="/static/images/akiya_solution.png" class="pc-img" onerror="this.style.display='none'" alt="スタンダードプラン">
+        <div class="pc-body">
+          <ul class="pc-ul">
+            <li>室内確認（換気）</li>
+            <li>通水</li>
+            <li>詳細レポート</li>
+            <li>軽微な一次対応</li>
+          </ul>
+          <p style="font-size:0.78rem;color:#6b7280;margin-top:10px;">室内の確認や、より詳しい状況把握が必要な方向けのプランです。</p>
+        </div>
+      </div>
+
+      <!-- 個別対応 -->
+      <div class="pc">
+        <div class="pc-head">
+          <div class="pc-label" style="color:#374151;">個別対応</div>
+          <div class="pc-name">草刈り・清掃・修繕など</div>
+          <div class="pc-price-note">都度お見積り</div>
+          <div class="pc-price" style="color:#374151;font-size:1.3rem;">ご相談ください</div>
+        </div>
+        <img src="/static/images/akiya_problem.png" class="pc-img" onerror="this.style.background='#f3f4f6';this.style.display='block'" alt="個別対応">
+        <div class="pc-body">
+          <ul class="pc-ul">
+            <li>草刈り</li>
+            <li>清掃</li>
+            <li>修繕 など</li>
+          </ul>
+          <p style="font-size:0.78rem;color:#6b7280;margin-top:10px;">必要な時に、必要な内容だけご依頼いただけます。</p>
+        </div>
+      </div>
+
+    </div>
+    <p style="text-align:center;margin-top:16px;font-size:0.8rem;color:#9ca3af;">※ 料金は物件の状況・場所・作業内容により異なります。まずはお気軽にご相談ください。</p>
+  </div>
+</section>
+
+<!-- ご利用の流れ -->
+<section class="flow-sec">
+  <div class="si">
+    <div class="tc">
+      <span class="tag tag-green" style="background:var(--gl);color:var(--gd);">ご利用の流れ</span>
+      <h2 class="h2" style="font-size:clamp(1.3rem,2.5vw,1.8rem);margin-top:8px;"></h2>
+    </div>
+    <div class="flow-steps">
+      <div class="flow-step">
+        <div class="flow-circle"><span class="fn">STEP</span><span class="fv">1</span></div>
+        <h4>無料確認のご依頼</h4>
+        <p>フォーム・お電話・LINEでお気軽にご連絡ください。</p>
+      </div>
+      <div class="flow-step">
+        <div class="flow-circle"><span class="fn">STEP</span><span class="fv">2</span></div>
+        <h4>状況の確認・写真撮影</h4>
+        <p>当社スタッフが現地に伺い、外観の確認と写真撮影を行います。</p>
+      </div>
+      <div class="flow-step">
+        <div class="flow-circle"><span class="fn">STEP</span><span class="fv">3</span></div>
+        <h4>状況のご報告・ご提案</h4>
+        <p>写真と簡単なコメントをお送りします。必要な場合のみご提案します。</p>
+      </div>
+      <div class="flow-step">
+        <div class="flow-circle"><span class="fn">STEP</span><span class="fv">4</span></div>
+        <h4>ご希望があれば対応開始</h4>
+        <p>ご要望があればプランをご提案します。ご不要であれば終了でOKです。</p>
+      </div>
+    </div>
+    <p class="flow-note">こちらから強くおすすめすることはありません。</p>
+  </div>
+</section>
+
+<!-- ご利用事例 -->
+<section class="cases-sec">
+  <div class="si">
+    <div class="tc">
+      <h2 class="h2" style="font-size:clamp(1.3rem,2.5vw,1.8rem);">ご利用事例</h2>
+    </div>
+    <div class="cases-grid">
+      <div class="case-card">
+        <img src="/static/images/service_akiya.png" class="case-img" onerror="this.style.height='80px'" alt="事例01">
+        <div class="case-body">
+          <div class="case-num">ケース 01</div>
+          <p>外観確認を定期的に行い、<br>安心している</p>
+        </div>
+      </div>
+      <div class="case-card">
+        <img src="/static/images/akiya_problem.png" class="case-img" onerror="this.style.height='80px'" alt="事例02">
+        <div class="case-body">
+          <div class="case-num">ケース 02</div>
+          <p>遠方に住んでいるため、<br>月1回の巡回を依頼</p>
+        </div>
+      </div>
+      <div class="case-card">
+        <img src="/static/images/akiya_solution.png" class="case-img" onerror="this.style.height='80px'" alt="事例03">
+        <div class="case-body">
+          <div class="case-num">ケース 03</div>
+          <p>草が伸びていたため、<br>除草をお願いした</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 将来的な相談の示唆 -->
+<div class="future-hint">
+  <p>将来的な <strong>売却・賃貸・活用・各種手続き</strong> のご相談も可能です 🏡</p>
+</div>
+
+<!-- CTA -->
+<section class="bottom-cta">
+  <div class="bottom-cta-inner">
+    <h2>まずは無料で状態をご確認ください</h2>
+    <p>「様子だけ見てほしい」という依頼も歓迎しています。お気軽にどうぞ。</p>
+    <div class="cta-btns3">
+      <a href="/contact?subject=akiya_free" class="btn-green">✉ 無料で状態を確認する</a>
+      <a href="tel:07083943791" class="btn-nav">📞 070-8394-3791</a>
+      <a href="https://lin.ee/gigscorp" class="btn-nav">💬 LINEで相談する</a>
+    </div>
+    <div class="phone-row">
+      お電話での相談：<a href="tel:07083943791">070-8394-3791</a>　受付時間 9:00〜18:00（土日祝も対応）
+    </div>
+  </div>
+</section>
+
+%(FOOTER)s
 </body></html>"""
 
 # ─────────────────────────────────────────────────────────────
@@ -1332,13 +1449,25 @@ def render(html, active=""):
         .replace("%(NAV)s", nav_html(active))
         .replace("%(FOOTER)s", FOOTER_HTML))
 
+def render_akiya(html):
+    """空き家ページ専用レンダー（専用ナビ使用）"""
+    return (html
+        .replace("%(CSS)s", COMMON_CSS)
+        .replace("%(AKIYA_NAV)s", akiya_nav_html())
+        .replace("%(NAV)s", akiya_nav_html())
+        .replace("%(FOOTER)s", FOOTER_HTML))
+
 @app.route('/')
 def home():
     return render(HOME_HTML, "ホーム")
 
 @app.route('/akiya')
 def akiya():
-    return render(AKIYA_HTML, "空き家ビジネス")
+    return render_akiya(AKIYA_HTML)
+
+@app.route('/akiya/service')
+def akiya_service():
+    return render_akiya(AKIYA_SERVICE_HTML)
 
 @app.route('/company')
 def company():
